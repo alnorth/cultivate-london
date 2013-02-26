@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226081813) do
+ActiveRecord::Schema.define(:version => 20130226083425) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20130226081813) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "crops", ["category_id"], :name => "crops_category_id_fk"
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -44,5 +46,11 @@ ActiveRecord::Schema.define(:version => 20130226081813) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "types", ["crop_id"], :name => "types_crop_id_fk"
+
+  add_foreign_key "crops", "categories", :name => "crops_category_id_fk", :dependent => :delete
+
+  add_foreign_key "types", "crops", :name => "types_crop_id_fk", :dependent => :delete
 
 end
