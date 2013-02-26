@@ -7,7 +7,7 @@
     </form>
     <% if @search %>
       <span class="search-results">
-        <%= @batches.count %> results found
+        <%= pluralize(@batches.count, "result") %> found
       </span>
       <%= link_to "Clear results", { :controller => "database", :action => "index"}, :class => "clear-search" %>
     <% end %>
@@ -48,11 +48,11 @@
         <td><%= batch.units_per_tray %></td>
         <td><%= batch.total_trays %></td>
         <td><%= batch.units_per_tray * batch.total_trays %></td>
-        <td><%= batch.start_week %></td>
-        <td><%= batch.germinate_week %></td>
-        <td><%= batch.pot_week %></td>
-        <td><%= batch.sale_week %></td>
-        <td><%= batch.expiry_week %></td>
+        <td>W<%= batch.start_week %></td>
+        <td>W<%= batch.germinate_week %></td>
+        <td>W<%= batch.pot_week %></td>
+        <td>W<%= batch.sale_week %></td>
+        <td>W<%= batch.expiry_week %></td>
       </tr>
     <% end %>
   </tbody>
