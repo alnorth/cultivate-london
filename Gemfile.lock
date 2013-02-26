@@ -45,6 +45,8 @@ GEM
       multi_json (~> 1.0)
     foreigner (1.4.0)
       activerecord (>= 3.0.0)
+    google-webfonts (0.1.2)
+      actionpack (>= 3.0.0)
     hike (1.2.1)
     i18n (0.6.2)
     journey (1.0.4)
@@ -112,6 +114,7 @@ DEPENDENCIES
   bourbon
   coffee-rails (~> 3.2.1)
   foreigner
+  google-webfonts
   jquery-rails
   mysql2
   rails (= 3.2.12)
