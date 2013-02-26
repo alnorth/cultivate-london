@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  generation: 
+  units_per_tray: 
+  total_trays: 
+  start_week: 
+  germinate_week: 
+  pot_week: 
+  sale_week: 
+  expiry_week: 
+
+two:
+  generation: 
+  units_per_tray: 
+  total_trays: 
+  start_week: 
+  germinate_week: 
+  pot_week: 
+  sale_week: 
+  expiry_week: 

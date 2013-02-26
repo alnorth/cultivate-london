@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226083425) do
+ActiveRecord::Schema.define(:version => 20130226084407) do
+
+  create_table "batches", :force => true do |t|
+    t.integer  "generation"
+    t.integer  "units_per_tray"
+    t.integer  "total_trays"
+    t.integer  "start_week"
+    t.integer  "germinate_week"
+    t.integer  "pot_week"
+    t.integer  "sale_week"
+    t.integer  "expiry_week"
+    t.integer  "site_id"
+    t.integer  "category_id"
+    t.integer  "crop_id"
+    t.integer  "type_id"
+    t.integer  "size_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "batches", ["category_id"], :name => "batches_category_id_fk"
+  add_index "batches", ["crop_id"], :name => "batches_crop_id_fk"
+  add_index "batches", ["site_id"], :name => "batches_site_id_fk"
+  add_index "batches", ["size_id"], :name => "batches_size_id_fk"
+  add_index "batches", ["type_id"], :name => "batches_type_id_fk"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -48,6 +72,12 @@ ActiveRecord::Schema.define(:version => 20130226083425) do
   end
 
   add_index "types", ["crop_id"], :name => "types_crop_id_fk"
+
+  add_foreign_key "batches", "categories", :name => "batches_category_id_fk", :dependent => :delete
+  add_foreign_key "batches", "crops", :name => "batches_crop_id_fk", :dependent => :delete
+  add_foreign_key "batches", "sites", :name => "batches_site_id_fk", :dependent => :delete
+  add_foreign_key "batches", "sizes", :name => "batches_size_id_fk", :dependent => :delete
+  add_foreign_key "batches", "types", :name => "batches_type_id_fk", :dependent => :delete
 
   add_foreign_key "crops", "categories", :name => "crops_category_id_fk", :dependent => :delete
 
