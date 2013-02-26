@@ -1,5 +1,3 @@
-@import "variables";
-@import "mixins";
 
 header {
   background-color: $headerBackground;
@@ -11,6 +9,7 @@ header {
     font-size: $headerHeight * 0.6;
     padding-top: $headerHeight * 0.2;
     margin-left: $headerHeight * 0.4;
+    height: $headerHeight;
   }
 
   nav {
