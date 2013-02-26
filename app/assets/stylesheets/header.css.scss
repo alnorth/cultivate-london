@@ -1,11 +1,5 @@
-$headerBackground: #2e2e2e;
-$brandColor: #d4f6a2;
-$headerHeight: 50px;
-
-$navColor: #8c8c8c;
-$navColorSelected: #ffffff;
-$navElementWidth: 150px;
-$navIconWidth: 30px;
+@import "variables";
+@import "mixins";
 
 header {
   background-color: $headerBackground;
@@ -26,6 +20,7 @@ header {
       display: inline-block;
       box-sizing: border-box;
       text-decoration: none;
+      position: relative;
       height: $headerHeight;
       color: $navColor;
       font-size: $headerHeight * 0.3;
@@ -37,6 +32,14 @@ header {
 
       &:hover, &.selected {
         color: $navColorSelected;
+      }
+
+      &.selected:after {
+        content: "";
+        @include arrow-down($headerBackground, $navArrowSize);
+        position: absolute;
+        top: $headerHeight;
+        left: ($navElementWidth - $navArrowSize) / 2 ;
       }
     }
   }
