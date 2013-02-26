@@ -64,3 +64,29 @@ div.main {
 * + .search {
   margin-left: $pagePadding;
 }
+
+table {
+  font-size: $bodyFontSize;
+  color: $bodyFontColor;
+}
+
+table {
+  border: 1px solid darken($backgroundColor, 10%);
+
+  th, td {
+    padding: $tablePadding;
+  }
+
+  th {
+    border-bottom: 1px solid darken($backgroundColor, 10%);
+  }
+
+  td {
+    background-color: $tableBodyColor;
+    border-bottom: 1px solid darken($backgroundColor, 15%);
+  }
+
+  tbody tr:hover td {
+    background-color: lighten($brandColor, 8%);
+  }
+}

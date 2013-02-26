@@ -5,9 +5,47 @@
     <a class="btn secondary">Search</a>
   </span>
 </nav>
-<div class="table">
-  <table>
-    <tr><th>Florp</th></tr>
-    <tr><td>One</td></tr>
-  </table>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Batch ID</th>
+      <th>Site</th>
+      <th>Category</th>
+      <th>Crop</th>
+      <th>Type</th>
+      <th>Generation</th>
+      <th>Size</th>
+      <th>Units per tray</th>
+      <th>Total trays</th>
+      <th>Cell size</th>
+      <th>Start</th>
+      <th>Germinate</th>
+      <th>Pot/Ground</th>
+      <th>Sale</th>
+      <th>Expiry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @batches.each do |batch| %>
+      <tr>
+        <td></td>
+        <td><%= batch.id %></td>
+        <td><%= batch.site.name %></td>
+        <td><%= batch.category.name %></td>
+        <td><%= batch.crop.name %></td>
+        <td><%= batch.type.name %></td>
+        <td><%= batch.generation %></td>
+        <td><%= batch.size.name %></td>
+        <td><%= batch.units_per_tray %></td>
+        <td><%= batch.total_trays %></td>
+        <td><%= batch.units_per_tray * batch.total_trays %></td>
+        <td><%= batch.start_week %></td>
+        <td><%= batch.germinate_week %></td>
+        <td><%= batch.pot_week %></td>
+        <td><%= batch.sale_week %></td>
+        <td><%= batch.expiry_week %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

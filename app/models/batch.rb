@@ -5,5 +5,5 @@ class Batch < ActiveRecord::Base
   belongs_to :type
   belongs_to :size
 
-  attr_accessible :expiry_week, :generation, :germinate_week, :pot_week, :sale_week, :start_week, :total_trays, :units_per_tray
+  attr_accessible :expiry_week, :generation, :germinate_week, :pot_week, :sale_week, :start_week, :total_trays, :units_per_tray, :site_id, :category_id, :crop_id, :type_id, :size_id
 end
