@@ -11,19 +11,25 @@ div.main {
   }
 }
 
-.btn {
-  display: inline-block;
-  border: 1px solid darken($backgroundColor, 10%);
-  font-weight: bold;
-  padding: $pagePadding / 3;
-  font-size: $pageNavFontSize;
-  cursor: pointer;
+@mixin page-nav-element {
+  padding: 0 $pagePadding / 3;
+  height: $pageNavFontSize + ($pagePadding * 0.6);
   border-radius: $pageNavBorderRadius;
-  @include user-select(none);
+  border: 1px solid darken($backgroundColor, 10%);
 
   &:hover {
     border: 1px solid darken($backgroundColor, 30%);
   }
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid darken($backgroundColor, 10%);
+  font-weight: bold;
+  font-size: $pageNavFontSize;
+  cursor: pointer;
+  @include user-select(none);
+  @include page-nav-element;
 
   &.primary {
     background-color: $brandColor;
@@ -51,14 +57,22 @@ div.main {
 .search {
   display: inline-block;
 
-  input {
-    padding: $pagePadding / 3;
+  input[type='text'] {
     width: $searchBoxWidth;
-    height: $pageNavFontSize;
-    border: 1px solid darken($backgroundColor, 10%);
     margin: 0;
-    border-radius: $pageNavBorderRadius;
+    @include page-nav-element;
   }
+
+  form {
+    display: inline-block;
+  }
+
+  .search-results, a.clear-search, a.clear-search:visited {
+    font-size: $bodyFontSize;
+    color: $buttonTextColor;
+    margin-left: $pagePadding / 1.5;
+  }
+
 }
 
 * + .search {
@@ -75,6 +89,7 @@ table {
 
   th, td {
     padding: $tablePadding;
+    text-align: left;
   }
 
   th {

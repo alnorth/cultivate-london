@@ -1,8 +1,16 @@
 <nav>
-  <a class="btn primary">Add New Crop</a>
+  <button class="btn primary">Add New Crop</button>
   <span class="search">
-    <input type="text" placeholder="Search database" id="database-search"/>
-    <a class="btn secondary">Search</a>
+    <form action="/database">
+      <input type="text" placeholder="Search database" id="database-search" name="search" value="<%= @search %>"/>
+      <button type="submit" class="btn secondary">Search</button>
+    </form>
+    <% if @search %>
+      <span class="search-results">
+        <%= @batches.count %> results found
+      </span>
+      <%= link_to "Clear results", { :controller => "database", :action => "index"}, :class => "clear-search" %>
+    <% end %>
   </span>
 </nav>
 <table>

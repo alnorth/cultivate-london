@@ -50,6 +50,7 @@ CultivateLondon::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'database#index'
 
+  match '/database' => 'database#index'
   match '/reports' => 'reports#show'
   match '/reports/:year/:week' => 'reports#show'
 
