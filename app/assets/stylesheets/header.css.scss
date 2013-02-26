@@ -1,0 +1,43 @@
+$headerBackground: #2e2e2e;
+$brandColor: #d4f6a2;
+$headerHeight: 50px;
+
+$navColor: #8c8c8c;
+$navColorSelected: #ffffff;
+$navElementWidth: 150px;
+$navIconWidth: 30px;
+
+header {
+  background-color: $headerBackground;
+  height: $headerHeight;
+
+  span.brand {
+    display: block;
+    color: $brandColor;
+    font-size: $headerHeight * 0.6;
+    padding-top: $headerHeight * 0.2;
+    margin-left: $headerHeight * 0.4;
+  }
+
+  nav {
+    float: right;
+
+    a {
+      display: inline-block;
+      box-sizing: border-box;
+      text-decoration: none;
+      height: $headerHeight;
+      color: $navColor;
+      font-size: $headerHeight * 0.3;
+      padding-top: $headerHeight * 0.35;
+      font-weight: bold;
+      width: $navElementWidth;
+      padding-left: $navIconWidth + 10;
+      box-shadow: -1px 0 0 0 lighten($headerBackground, 20%), -2px 0 0 0 darken($headerBackground, 20%);
+
+      &:hover, &.selected {
+        color: $navColorSelected;
+      }
+    }
+  }
+}

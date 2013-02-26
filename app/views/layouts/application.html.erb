@@ -7,7 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <header>
+    <nav>
+      <%= link_to "Database", { :controller => "database", :action => "index"}, :class => (controller.controller_name == "database" ? "selected" : "") %>
+      <%= link_to "Reports", {:controller => "reports", :action => "show"}, :class => (controller.controller_name == "reports" ? "selected" : "") %>
+    </nav>
+    <span class="brand">Land Management</span>
+  </header>
 <%= yield %>
 
 </body>
