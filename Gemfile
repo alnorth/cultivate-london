@@ -20,6 +20,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   gem 'bourbon'
+  gem 'knockoutjs-rails'
 end
 
 gem 'jquery-rails'

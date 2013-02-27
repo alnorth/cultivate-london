@@ -34,26 +34,30 @@
       <th>Expiry</th>
     </tr>
   </thead>
-  <tbody>
-    <% @batches.each do |batch| %>
-      <tr>
-        <td></td>
-        <td><%= batch.id %></td>
-        <td><%= batch.site.name %></td>
-        <td><%= batch.category.name %></td>
-        <td><%= batch.crop.name %></td>
-        <td><%= batch.type.name %></td>
-        <td><%= batch.generation %></td>
-        <td><%= batch.size.name %></td>
-        <td><%= batch.units_per_tray %></td>
-        <td><%= batch.total_trays %></td>
-        <td><%= batch.units_per_tray * batch.total_trays %></td>
-        <td>W<%= batch.start_week %></td>
-        <td>W<%= batch.germinate_week %></td>
-        <td>W<%= batch.pot_week %></td>
-        <td>W<%= batch.sale_week %></td>
-        <td>W<%= batch.expiry_week %></td>
-      </tr>
-    <% end %>
+  <tbody data-bind="foreach: data">
+    <tr>
+      <td></td>
+      <td data-bind="text: id"></td>
+      <td data-bind="text: site_name"></td>
+      <td data-bind="text: category_name"></td>
+      <td data-bind="text: crop_name"></td>
+      <td data-bind="text: type_name"></td>
+      <td data-bind="text: generation"></td>
+      <td data-bind="text: size_name"></td>
+      <td data-bind="text: units_per_tray"></td>
+      <td data-bind="text: total_trays"></td>
+      <td data-bind="text: units_per_tray() * total_trays()"></td>
+      <td data-bind="text: format_week(start_week())"></td>
+      <td data-bind="text: format_week(germinate_week())"></td>
+      <td data-bind="text: format_week(pot_week())"></td>
+      <td data-bind="text: format_week(sale_week())"></td>
+      <td data-bind="text: format_week(expiry_week())"></td>
+    </tr>
   </tbody>
 </table>
+
+<% content_for :action_specific_js do %>
+<script type="text/javascript" language="javascript">
+  var databaseData = <%= @batches.to_json.html_safe %>;
+</script>
+<% end %>
