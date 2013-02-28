@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226084407) do
+ActiveRecord::Schema.define(:version => 20130228223410) do
 
   create_table "batches", :force => true do |t|
     t.integer  "generation"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20130226084407) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "categories", ["name"], :name => "index_categories_on_name", :unique => true
+
   create_table "crops", :force => true do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130226084407) do
   end
 
   add_index "crops", ["category_id"], :name => "crops_category_id_fk"
+  add_index "crops", ["name"], :name => "index_crops_on_name", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -58,11 +61,15 @@ ActiveRecord::Schema.define(:version => 20130226084407) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "sites", ["name"], :name => "index_sites_on_name", :unique => true
+
   create_table "sizes", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "sizes", ["name"], :name => "index_sizes_on_name", :unique => true
 
   create_table "types", :force => true do |t|
     t.string   "name"
@@ -72,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20130226084407) do
   end
 
   add_index "types", ["crop_id"], :name => "types_crop_id_fk"
+  add_index "types", ["name"], :name => "index_types_on_name", :unique => true
 
   add_foreign_key "batches", "categories", :name => "batches_category_id_fk", :dependent => :delete
   add_foreign_key "batches", "crops", :name => "batches_crop_id_fk", :dependent => :delete
