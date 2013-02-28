@@ -18,17 +18,24 @@ class Batch
     @units_per_tray = ko.observable(data.units_per_tray)
     @cell_size = ko.computed((-> @total_trays() * @units_per_tray()), this)
 
-    @editing = ko.observable(false);
+    ko.editable(this)
 
   format_week: (week) ->
     'W' + week
 
-  toggle_edit: () ->
-    @editing(!@editing())
-
 class ViewModel
   constructor: (rawData) ->
     @data = ko.observable(new Batch(b) for b in rawData)
+    @editing = ko.observable()
+
+  edit: (batch) ->
+    if(!@editing())
+      batch.beginEdit()
+      @editing(batch)
+
+  cancel_edit: () ->
+    @editing().rollback()
+    @editing(undefined)
 
 $ ->
   if databaseData?

@@ -83,6 +83,11 @@ table {
   font-size: $bodyFontSize;
   color: $bodyFontColor;
   border: 1px solid darken($backgroundColor, 10%);
+  min-width: 100%;
+
+  input {
+    font-size: $bodyFontSize;
+  }
 
   th, td {
     padding: $tablePadding;

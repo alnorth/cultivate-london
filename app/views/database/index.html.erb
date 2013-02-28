@@ -35,9 +35,9 @@
     </tr>
   </thead>
   <tbody data-bind="foreach: data">
-    <!-- ko ifnot: editing -->
+    <!-- ko ifnot: $parent.editing() === $data -->
       <tr>
-        <td><a data-bind="click: toggle_edit">Edit</a></td>
+        <td><a data-bind="click: $parent.edit.bind($parent), ifnot: $parent.editing">Edit</a></td>
         <td data-bind="text: id"></td>
         <td data-bind="text: site_name"></td>
         <td data-bind="text: category_name"></td>
@@ -55,16 +55,16 @@
         <td data-bind="text: format_week(expiry_week())"></td>
       </tr>
     <!-- /ko -->
-    <!-- ko if: editing -->
-      <tr data-bind="if: editing">
-        <td><a data-bind="click: toggle_edit">Cancel</a></td>
+    <!-- ko if: $parent.editing() === $data -->
+      <tr>
+        <td><a data-bind="click: $parent.cancel_edit.bind($parent)">Cancel</a></td>
         <td data-bind="text: id"></td>
-        <td><input data-bind="value: site_name" /></td>
+        <td><input class="site-name" data-bind="value: site_name" /></td>
         <td><input data-bind="value: category_name" /></td>
         <td><input data-bind="value: crop_name" /></td>
         <td><input data-bind="value: type_name" /></td>
         <td><input class="generation" data-bind="value: generation" type="number" /></td>
-        <td><input data-bind="value: size_name" /></td>
+        <td><input class="size" data-bind="value: size_name" /></td>
         <td><input class="tray" data-bind="value: units_per_tray" type="number" /></td>
         <td><input class="tray" data-bind="value: total_trays" type="number" /></td>
         <td data-bind="text: cell_size"></td>
