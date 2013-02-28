@@ -35,24 +35,46 @@
     </tr>
   </thead>
   <tbody data-bind="foreach: data">
-    <tr>
-      <td></td>
-      <td data-bind="text: id"></td>
-      <td data-bind="text: site_name"></td>
-      <td data-bind="text: category_name"></td>
-      <td data-bind="text: crop_name"></td>
-      <td data-bind="text: type_name"></td>
-      <td data-bind="text: generation"></td>
-      <td data-bind="text: size_name"></td>
-      <td data-bind="text: units_per_tray"></td>
-      <td data-bind="text: total_trays"></td>
-      <td data-bind="text: units_per_tray() * total_trays()"></td>
-      <td data-bind="text: format_week(start_week())"></td>
-      <td data-bind="text: format_week(germinate_week())"></td>
-      <td data-bind="text: format_week(pot_week())"></td>
-      <td data-bind="text: format_week(sale_week())"></td>
-      <td data-bind="text: format_week(expiry_week())"></td>
-    </tr>
+    <!-- ko ifnot: editing -->
+      <tr>
+        <td><a data-bind="click: toggle_edit">Edit</a></td>
+        <td data-bind="text: id"></td>
+        <td data-bind="text: site_name"></td>
+        <td data-bind="text: category_name"></td>
+        <td data-bind="text: crop_name"></td>
+        <td data-bind="text: type_name"></td>
+        <td data-bind="text: generation"></td>
+        <td data-bind="text: size_name"></td>
+        <td data-bind="text: units_per_tray"></td>
+        <td data-bind="text: total_trays"></td>
+        <td data-bind="text: cell_size"></td>
+        <td data-bind="text: format_week(start_week())"></td>
+        <td data-bind="text: format_week(germinate_week())"></td>
+        <td data-bind="text: format_week(pot_week())"></td>
+        <td data-bind="text: format_week(sale_week())"></td>
+        <td data-bind="text: format_week(expiry_week())"></td>
+      </tr>
+    <!-- /ko -->
+    <!-- ko if: editing -->
+      <tr data-bind="if: editing">
+        <td><a data-bind="click: toggle_edit">Cancel</a></td>
+        <td data-bind="text: id"></td>
+        <td><input data-bind="value: site_name" /></td>
+        <td><input data-bind="value: category_name" /></td>
+        <td><input data-bind="value: crop_name" /></td>
+        <td><input data-bind="value: type_name" /></td>
+        <td><input class="generation" data-bind="value: generation" type="number" /></td>
+        <td><input data-bind="value: size_name" /></td>
+        <td><input class="tray" data-bind="value: units_per_tray" type="number" /></td>
+        <td><input class="tray" data-bind="value: total_trays" type="number" /></td>
+        <td data-bind="text: cell_size"></td>
+        <td><input class="week" data-bind="value: start_week" type="number" /></td>
+        <td><input class="week" data-bind="value: germinate_week" type="number" /></td>
+        <td><input class="week" data-bind="value: pot_week" type="number" /></td>
+        <td><input class="week" data-bind="value: sale_week" type="number" /></td>
+        <td><input class="week" data-bind="value: expiry_week" type="number" /></td>
+      </tr>
+    <!-- /ko -->
   </tbody>
 </table>
 

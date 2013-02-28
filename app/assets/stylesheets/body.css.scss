@@ -82,9 +82,6 @@ div.main {
 table {
   font-size: $bodyFontSize;
   color: $bodyFontColor;
-}
-
-table {
   border: 1px solid darken($backgroundColor, 10%);
 
   th, td {
@@ -103,5 +100,11 @@ table {
 
   tbody tr:hover td {
     background-color: lighten($brandColor, 8%);
+  }
+
+  a {
+    color: $bodyFontColor;
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
