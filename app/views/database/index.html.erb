@@ -37,7 +37,14 @@
   <tbody data-bind="foreach: data">
     <!-- ko ifnot: $parent.editing() === $data -->
       <tr>
-        <td><a data-bind="click: $parent.edit.bind($parent), ifnot: $parent.editing">Edit</a></td>
+        <td class="edit-controls">
+          <!-- ko ifnot: saving -->
+            <a data-bind="click: $parent.edit.bind($parent), ifnot: $parent.editing">Edit</a>
+          <!-- /ko -->
+          <!-- ko if: saving -->
+            Saving &hellip;
+          <!-- /ko -->
+        </td>
         <td data-bind="text: id"></td>
         <td data-bind="text: site_name"></td>
         <td data-bind="text: category_name"></td>
@@ -57,7 +64,10 @@
     <!-- /ko -->
     <!-- ko if: $parent.editing() === $data -->
       <tr>
-        <td><a data-bind="click: $parent.cancel_edit.bind($parent)">Cancel</a></td>
+        <td class="edit-controls">
+          <a data-bind="click: $parent.save.bind($parent)">Save</a>
+          <a data-bind="click: $parent.cancel_edit.bind($parent)">Cancel</a>
+        </td>
         <td data-bind="text: id"></td>
         <td><input class="site-name" data-bind="value: site_name" /></td>
         <td><input data-bind="value: category_name" /></td>

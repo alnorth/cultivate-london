@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.postjson
 //= require knockout
 //= require ko.editables
 //= require_tree .

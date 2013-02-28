@@ -1,6 +1,6 @@
 class Batch
   constructor: (data) ->
-    @id = data.id
+    @id = ko.observable(data.id)
     @site_name = ko.observable(data.site.name)
     @category_name = ko.observable(data.category.name)
     @crop_name = ko.observable(data.crop.name)
@@ -18,10 +18,20 @@ class Batch
     @units_per_tray = ko.observable(data.units_per_tray)
     @cell_size = ko.computed((-> @total_trays() * @units_per_tray()), this)
 
+    @saving = ko.observable(false);
+
     ko.editable(this)
 
   format_week: (week) ->
     'W' + week
+
+  save: ->
+    self = this
+    @saving(true)
+    $.postJSON('/batch/save', {batch: ko.toJS(this)}, (json) ->
+      self.saving(false)
+      self.id(json.id)
+    )
 
 class ViewModel
   constructor: (rawData) ->
@@ -33,8 +43,13 @@ class ViewModel
       batch.beginEdit()
       @editing(batch)
 
-  cancel_edit: () ->
+  cancel_edit: ->
     @editing().rollback()
+    @editing(undefined)
+
+  save: ->
+    @editing().commit()
+    @editing().save()
     @editing(undefined)
 
 $ ->

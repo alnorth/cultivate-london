@@ -6,3 +6,7 @@ input.week, input.generation, input.site-name {
 input.tray, input.size {
   width: $bodyFontSize * 5;
 }
+
+td.edit-controls {
+  white-space: nowrap;
+}
