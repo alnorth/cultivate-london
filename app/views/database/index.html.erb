@@ -63,26 +63,52 @@
       </tr>
     <!-- /ko -->
     <!-- ko if: $parent.editing() === $data -->
-      <tr>
+      <tr data-bind="validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
         <td class="edit-controls">
           <a data-bind="click: $parent.save.bind($parent)">Save</a>
           <a data-bind="click: $parent.cancel_edit.bind($parent)">Cancel</a>
         </td>
         <td data-bind="text: id"></td>
-        <td><input class="site-name" data-bind="value: site_name" /></td>
-        <td><input data-bind="value: category_name" /></td>
-        <td><input data-bind="value: crop_name" /></td>
-        <td><input data-bind="value: type_name" /></td>
-        <td><input class="generation" data-bind="value: generation" type="number" /></td>
-        <td><input class="size" data-bind="value: size_name" /></td>
-        <td><input class="tray" data-bind="value: units_per_tray" type="number" /></td>
-        <td><input class="tray" data-bind="value: total_trays" type="number" /></td>
+        <td class="input site-name" data-bind="validationElement: site_name">
+          <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown'" />
+        </td>
+        <td class="input" data-bind="validationElement: category_name">
+          <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown'" />
+        </td>
+        <td class="input" data-bind="validationElement: crop_name">
+          <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown'" />
+        </td>
+        <td class="input" data-bind="validationElement: type_name">
+          <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown'" />
+        </td>
+        <td class="input generation" data-bind="validationElement: generation">
+          <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input size" data-bind="validationElement: size_name">
+          <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown'" />
+        </td>
+        <td class="input tray" data-bind="validationElement: units_per_tray">
+          <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input tray" data-bind="validationElement: total_trays">
+          <input class="required" data-bind="value: total_trays, valueUpdate:'afterkeydown'" type="number" />
+        </td>
         <td data-bind="text: cell_size"></td>
-        <td><input class="week" data-bind="value: start_week" type="number" /></td>
-        <td><input class="week" data-bind="value: germinate_week" type="number" /></td>
-        <td><input class="week" data-bind="value: pot_week" type="number" /></td>
-        <td><input class="week" data-bind="value: sale_week" type="number" /></td>
-        <td><input class="week" data-bind="value: expiry_week" type="number" /></td>
+        <td class="input week" data-bind="validationElement: start_week">
+          <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input week" data-bind="validationElement: germinate_week">
+          <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input week" data-bind="validationElement: pot_week">
+          <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input week" data-bind="validationElement: sale_week">
+          <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
+        </td>
+        <td class="input week" data-bind="validationElement: expiry_week">
+          <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
+        </td>
       </tr>
     <!-- /ko -->
   </tbody>

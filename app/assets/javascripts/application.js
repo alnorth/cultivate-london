@@ -15,4 +15,5 @@
 //= require jquery.postjson
 //= require knockout
 //= require ko.editables
+//= require knockout.validation
 //= require_tree .
