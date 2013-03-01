@@ -1,22 +1,14 @@
 class Batch
   constructor: (data) ->
-    @id = ko.observable(data.id)
-    @site_name = ko.observable(data.site.name)
-    @category_name = ko.observable(data.category.name)
-    @crop_name = ko.observable(data.crop.name)
-    @type_name = ko.observable(data.type.name)
-    @size_name = ko.observable(data.size.name)
-    @generation = ko.observable(data.generation)
+    for key in ['id', 'generation', 'start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week', 'total_trays', 'units_per_tray']
+      this[key] = ko.observable(data[key])
+    for key in ['site', 'category', 'crop', 'type', 'size']
+      this[key + '_name'] = ko.observable(if data[key] then data[key].name else undefined)
 
-    @start_week = ko.observable(data.start_week)
-    @germinate_week = ko.observable(data.germinate_week)
-    @pot_week = ko.observable(data.pot_week)
-    @sale_week = ko.observable(data.sale_week)
-    @expiry_week = ko.observable(data.expiry_week)
-
-    @total_trays = ko.observable(data.total_trays)
-    @units_per_tray = ko.observable(data.units_per_tray)
-    @cell_size = ko.computed((-> @total_trays() * @units_per_tray()), this)
+    @cell_size = ko.computed((->
+        cell = @total_trays() * @units_per_tray()
+        if isNaN cell then '' else cell
+      ), this)
 
     @saving = ko.observable(false);
 
@@ -35,7 +27,7 @@ class Batch
 
 class ViewModel
   constructor: (rawData) ->
-    @data = ko.observable(new Batch(b) for b in rawData)
+    @data = ko.observableArray(new Batch(b) for b in rawData)
     @editing = ko.observable()
 
   edit: (batch) ->
@@ -44,13 +36,23 @@ class ViewModel
       @editing(batch)
 
   cancel_edit: ->
-    @editing().rollback()
+    e = @editing()
+    if(!e.id())
+      @data.remove(e)
+    else
+      e.rollback()
     @editing(undefined)
 
   save: ->
     @editing().commit()
     @editing().save()
     @editing(undefined)
+
+  add_new: ->
+    if(!@editing())
+      b = new Batch({})
+      @data.unshift(b)
+      @editing(b)
 
 $ ->
   if databaseData?

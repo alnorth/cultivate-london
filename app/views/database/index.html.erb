@@ -1,5 +1,5 @@
 <nav>
-  <button class="btn primary">Add New Crop</button>
+  <button class="btn primary" data-bind="click: add_new">Add New Crop</button>
   <span class="search">
     <form action="/database">
       <input type="text" placeholder="Search database" id="database-search" name="search" value="<%= @search %>"/>
