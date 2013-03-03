@@ -116,7 +116,10 @@
 </table>
 
 <% content_for :action_specific_js do %>
+<%= javascript_include_tag "database" %>
 <script type="text/javascript" language="javascript">
-  var databaseData = <%= @batches.to_json.html_safe %>;
+  $(function() {
+    loadDatabaseData(<%= @batches.to_json.html_safe %>);
+  });
 </script>
 <% end %>

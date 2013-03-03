@@ -12,7 +12,3 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require knockout
-//= require ko.editables
-//= require knockout.validation
-//= require_tree .

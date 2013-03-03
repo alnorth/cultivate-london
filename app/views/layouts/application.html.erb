@@ -4,7 +4,6 @@
   <title>Cultivate London</title>
   <%= google_webfonts_link_tag :lato => [300, 700] %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -18,6 +17,8 @@
   <div class="main">
     <%= yield %>
   </div>
+
+  <%= javascript_include_tag "application" %>
   <%= yield :action_specific_js if content_for?(:action_specific_js) %>
 </body>
 </html>

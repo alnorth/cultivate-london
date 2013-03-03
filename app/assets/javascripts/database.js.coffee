@@ -1,3 +1,7 @@
+#= require knockout
+#= require ko.editables
+#= require knockout.validation
+
 send = (url, type, data, success) ->
   $.ajax(
     url: url,
@@ -82,7 +86,6 @@ class ViewModel
       @editing(undefined)
     batch.destroy(=> @data.remove(batch))
 
-$ ->
-  if databaseData?
-    vm = new ViewModel(databaseData)
-    ko.applyBindings(vm)
+window.loadDatabaseData = (databaseData) ->
+  vm = new ViewModel(databaseData)
+  ko.applyBindings(vm)
