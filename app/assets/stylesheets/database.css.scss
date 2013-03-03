@@ -1,12 +1,25 @@
 
-input.week, input.generation, input.site-name {
-  width: $bodyFontSize * 3;
+td.week, td.generation, td.site-name {
+  input {
+    width: $bodyFontSize * 3;
+  }
 }
 
-input.tray, input.size {
-  width: $bodyFontSize * 5;
+td.tray, td.size {
+  input {
+    width: $bodyFontSize * 5;
+  }
+}
+
+td.input {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 td.edit-controls {
   white-space: nowrap;
+}
+
+td.error {
+  background-color: $errorColor !important;
 }
