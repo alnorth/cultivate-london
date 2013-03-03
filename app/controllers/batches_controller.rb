@@ -1,4 +1,4 @@
-class BatchController < ApplicationController
+class BatchesController < ApplicationController
   def save
     p = params[:batch]
 
