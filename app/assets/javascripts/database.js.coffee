@@ -49,12 +49,12 @@ class ViewModel
     @data = ko.observableArray(new Batch(b) for b in rawData)
     @editing = ko.observable()
 
-  edit: (batch) ->
+  edit: (batch) =>
     if(!@editing())
       batch.beginEdit()
       @editing(batch)
 
-  cancel_edit: ->
+  cancel_edit: =>
     e = @editing()
     if(!e.id())
       @data.remove(e)
@@ -62,7 +62,7 @@ class ViewModel
       e.rollback()
     @editing(undefined)
 
-  save: ->
+  save: =>
     @editing().commit()
     @editing().save()
     @editing(undefined)
@@ -73,7 +73,7 @@ class ViewModel
       @data.unshift(b)
       @editing(b)
 
-  destroy: (batch) ->
+  destroy: (batch) =>
     if @editing() is batch
       @editing(undefined)
     batch.destroy(=> @data.remove(batch))

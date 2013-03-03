@@ -39,8 +39,8 @@
       <tr>
         <td class="edit-controls">
           <!-- ko ifnot: saving -->
-            <a data-bind="click: $parent.edit.bind($parent), ifnot: $parent.editing">Edit</a>
-            <a data-bind="click: $parent.destroy.bind($parent)">Remove</a>
+            <a data-bind="click: $parent.edit, ifnot: $parent.editing">Edit</a>
+            <a data-bind="click: $parent.destroy">Remove</a>
           <!-- /ko -->
           <!-- ko if: saving -->
             Saving &hellip;
@@ -66,8 +66,8 @@
     <!-- ko if: $parent.editing() === $data -->
       <tr>
         <td class="edit-controls">
-          <a data-bind="click: $parent.save.bind($parent)">Save</a>
-          <a data-bind="click: $parent.cancel_edit.bind($parent)">Cancel</a>
+          <a data-bind="click: $parent.save">Save</a>
+          <a data-bind="click: $parent.cancel_edit">Cancel</a>
         </td>
         <td data-bind="text: id"></td>
         <td><input class="site-name" data-bind="value: site_name" /></td>
