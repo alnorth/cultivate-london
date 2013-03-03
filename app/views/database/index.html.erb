@@ -40,6 +40,7 @@
         <td class="edit-controls">
           <!-- ko ifnot: saving -->
             <a data-bind="click: $parent.edit.bind($parent), ifnot: $parent.editing">Edit</a>
+            <a data-bind="click: $parent.destroy.bind($parent)">Remove</a>
           <!-- /ko -->
           <!-- ko if: saving -->
             Saving &hellip;

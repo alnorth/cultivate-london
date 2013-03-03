@@ -40,6 +40,10 @@ class Batch
     else
       send '/batches', 'POST', data, success
 
+  destroy: (success) ->
+    @saving(true)
+    send '/batches/' + this.id(), 'DELETE', {}, success
+
 class ViewModel
   constructor: (rawData) ->
     @data = ko.observableArray(new Batch(b) for b in rawData)
@@ -68,6 +72,11 @@ class ViewModel
       b = new Batch({})
       @data.unshift(b)
       @editing(b)
+
+  destroy: (batch) ->
+    if @editing() is batch
+      @editing(undefined)
+    batch.destroy(=> @data.remove(batch))
 
 $ ->
   if databaseData?

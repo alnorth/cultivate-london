@@ -17,6 +17,15 @@ class BatchesController < ApplicationController
     end
   end
 
+  def destroy
+    batch = Batch.find(params[:id])
+    batch.destroy
+
+    respond_to do |format|
+      format.json { render json: batch }
+    end
+  end
+
   def update_and_save(batch, data)
     batch.site = Site.where(:name => data[:site_name]).first_or_create()
     batch.category = Category.where(:name => data[:category_name]).first_or_create()
