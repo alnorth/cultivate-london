@@ -1,3 +1,14 @@
+send = (url, type, data, success) ->
+  $.ajax(
+    url: url,
+    type: type,
+    success: success,
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify(data),
+    processData: false
+  )
+
 class Batch
   constructor: (data) ->
     for key in ['id', 'generation', 'start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week', 'total_trays', 'units_per_tray']
@@ -20,10 +31,14 @@ class Batch
   save: ->
     self = this
     @saving(true)
-    $.postJSON('/batch/save', {batch: ko.toJS(this)}, (json) ->
+    success = (json) ->
       self.saving(false)
       self.id(json.id)
-    )
+    data = batch: ko.toJS(this)
+    if(self.id())
+      send '/batches/' + self.id(), 'PUT', data, success
+    else
+      send '/batches', 'POST', data, success
 
 class ViewModel
   constructor: (rawData) ->

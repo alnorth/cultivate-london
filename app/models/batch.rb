@@ -7,6 +7,7 @@ class Batch < ActiveRecord::Base
 
   attr_accessible :expiry_week, :generation, :germinate_week, :pot_week, :sale_week, :start_week, :total_trays, :units_per_tray, :site_id, :category_id, :crop_id, :type_id, :size_id
 
+  # This is used when generating JSON. We don't send IDs for linked ojects, instead we send their names.
   def serializable_hash(options={})
     options = {
       :include => {
@@ -20,4 +21,5 @@ class Batch < ActiveRecord::Base
     }.update(options)
     super(options)
   end
+
 end
