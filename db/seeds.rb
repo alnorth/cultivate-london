@@ -21,7 +21,7 @@ mizuna_type = Type.first_or_create(name: "Mizuna", crop_id: mizuna.id)
 field = Size.first_or_create(name: 'Field')
 ninecm = Size.first_or_create(name: '9cm')
 
-Batch.first_or_create(
+Batch.create(
   site_id: lr.id,
   category_id: veg.id,
   crop_id: toms.id,
@@ -37,7 +37,7 @@ Batch.first_or_create(
   expiry_week: 24
 )
 
-Batch.first_or_create(
+Batch.create(
   site_id: bf.id,
   category_id: salad.id,
   crop_id: mizuna.id,

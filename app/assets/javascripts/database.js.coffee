@@ -15,7 +15,7 @@ send = (url, type, data, success) ->
 
 class Batch
   constructor: (data) ->
-    this.id = ko.observable(data[key])
+    this.id = ko.observable(data.id)
 
     for key in ['generation', 'total_trays', 'units_per_tray']
       this[key] = ko.observable(data[key]).extend(required: true, digit: true, min: 1)
@@ -50,7 +50,10 @@ class Batch
 
   destroy: (success) ->
     @saving(true)
-    send '/batches/' + this.id(), 'DELETE', {}, success
+    if this.id()
+      send '/batches/' + this.id(), 'DELETE', {}, success
+    else
+      success()
 
 class ViewModel
   constructor: (rawData) ->
@@ -80,14 +83,14 @@ class ViewModel
   add_new: ->
     if(!@editing())
       b = ko.validatedObservable(new Batch({}))
-      @data.unshift(b())
+      @data.unshift(b)
       b().beginEdit()
       @editing(b())
 
   destroy: (batch) =>
     if @editing() is batch
       @editing(undefined)
-    batch.destroy(=> @data.remove(batch))
+    batch.destroy(=> @data.remove((item) -> item() is batch))
 
 window.loadDatabaseData = (databaseData) ->
   vm = new ViewModel(databaseData)
