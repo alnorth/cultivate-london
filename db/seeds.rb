@@ -6,22 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-lr = Site.create(name: 'LR')
-bf = Site.create(name: 'BF')
+lr = Site.first_or_create(name: 'LR')
+bf = Site.first_or_create(name: 'BF')
 
-veg = Category.create(name: 'Baby veg')
-salad = Category.create(name: 'Peppery salad')
+veg = Category.first_or_create(name: 'Baby veg')
+salad = Category.first_or_create(name: 'Peppery salad')
 
-toms = Crop.create(name: 'Tomatoes', category_id: veg.id)
-mizuna = Crop.create(name: 'Mizuna', category_id: salad.id)
+toms = Crop.first_or_create(name: 'Tomatoes', category_id: veg.id)
+mizuna = Crop.first_or_create(name: 'Mizuna', category_id: salad.id)
 
-gardeners = Type.create(name: "Gardener's", crop_id: toms.id)
-mizuna_type = Type.create(name: "Mizuna", crop_id: mizuna.id)
+gardeners = Type.first_or_create(name: "Gardener's", crop_id: toms.id)
+mizuna_type = Type.first_or_create(name: "Mizuna", crop_id: mizuna.id)
 
-field = Size.create(name: 'Field')
-ninecm = Size.create(name: '9cm')
+field = Size.first_or_create(name: 'Field')
+ninecm = Size.first_or_create(name: '9cm')
 
-Batch.create(
+Batch.first_or_create(
   site_id: lr.id,
   category_id: veg.id,
   crop_id: toms.id,
@@ -37,7 +37,7 @@ Batch.create(
   expiry_week: 24
 )
 
-Batch.create(
+Batch.first_or_create(
   site_id: bf.id,
   category_id: salad.id,
   crop_id: mizuna.id,
