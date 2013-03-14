@@ -1,20 +1,29 @@
 require "bundler/capistrano"
 
 # Needs to be set before unicorn require - https://github.com/sosedoff/capistrano-unicorn/issues/39
-set :application, "cultivatelondon"
-
-require 'capistrano-unicorn'
-
 set :application, "cultivate-london"
 set :scm, :git
 set :repository,  "git://github.com/alnorth29/cultivate-london.git"
 
+set :stages, ["staging", "production"]
+set :default_stage, "staging"
+set :stage_used, "staging"
+require 'capistrano/ext/multistage'
+
 set :user, "alasdair"
 set :use_sudo, false
 
-set :stages, ["staging", "production"]
-set :default_stage, "staging"
-require 'capistrano/ext/multistage'
+set :directory, "cultivatelondon.alnorth.com"
+
+set(:ruby_env) { stage_used }
+set(:unicorn_env) { ruby_env }
+set(:app_env) { ruby_env }
+set(:deploy_to) { "/var/www/#{directory}" }
+set(:current_path) { File.join(deploy_to, current_dir) }
+
+require 'capistrano-unicorn'
+
+after 'deploy:restart', 'unicorn:restart'
 
 namespace :deploy do
   desc 'Load DB schema - CAUTION: rewrites database!'
