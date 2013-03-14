@@ -42,7 +42,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 group :development do
-  gem 'capistrano-unicorn', :require => false
+  gem 'capistrano-unicorn', :require => false, :git => 'git://github.com/sosedoff/capistrano-unicorn.git', :ref => 'f63247ce6b58cc722e26a4321786005a0ad6996d'
 end
 
 # To use debugger
