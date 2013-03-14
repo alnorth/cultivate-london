@@ -23,7 +23,7 @@ set(:current_path) { File.join(deploy_to, current_dir) }
 
 require 'capistrano-unicorn'
 
-after 'deploy:restart', 'unicorn:restart'
+after 'deploy:restart', 'unicorn:reload'
 
 namespace :deploy do
   desc 'Load DB schema - CAUTION: rewrites database!'
