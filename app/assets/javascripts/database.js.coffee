@@ -15,7 +15,9 @@ send = (url, type, data, success) ->
 
 class Batch
   constructor: (data) ->
-    for key in ['id', 'generation', 'total_trays', 'units_per_tray']
+    this.id = ko.observable(data[key])
+
+    for key in ['generation', 'total_trays', 'units_per_tray']
       this[key] = ko.observable(data[key]).extend(required: true, digit: true, min: 1)
     for key in ['start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week']
       this[key] = ko.observable(data[key]).extend(required: true, min: 1, max: 53, digit: true)
