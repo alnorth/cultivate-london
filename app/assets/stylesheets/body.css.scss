@@ -67,10 +67,17 @@ div.main {
     display: inline-block;
   }
 
-  .search-results, a.clear-search, a.clear-search:visited {
+  span, a, a:visited, label {
     font-size: $bodyFontSize;
     color: $buttonTextColor;
     margin-left: $pagePadding / 1.5;
+  }
+
+  input[type='checkbox'] {
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    margin: 0;
   }
 
 }
