@@ -6,4 +6,4 @@ set :current_path, File.join(deploy_to, current_dir)
 set :rails_env,   "staging"
 set :unicorn_env, "staging"
 set :app_env,     "staging"
-after 'deploy:restart', 'unicorn:reload'
+after 'deploy:restart', 'unicorn:restart'
