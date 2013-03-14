@@ -167,8 +167,10 @@ fieldset {
   }
 }
 
-fieldset + fieldset, .fieldset-form-actions + fieldset {
-  margin-top: $fieldsetPadding * 3;
+fieldset , .fieldset-form-actions, nav {
+  & + fieldset {
+    margin-top: $fieldsetPadding * 3;
+  }
 }
 
 .fieldset-form-actions {

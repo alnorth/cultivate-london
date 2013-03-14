@@ -41,5 +41,9 @@ gem 'unicorn'
 gem 'capistrano'
 gem 'capistrano-ext'
 
+group :development do
+  gem 'capistrano-unicorn', :require => false
+end
+
 # To use debugger
 # gem 'debugger'
