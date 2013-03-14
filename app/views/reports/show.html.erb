@@ -1,8 +1,12 @@
 <nav>
-  <button class="btn primary">Print Task List</button>
+  <span class="page-title">
+    Week <%= @week_number %>
+  </span>
   <span class="search">
+    <button class="btn primary">Print Task List</button>
     <span>Include:</span>
     <label><input type="checkbox" id="overdue" /> Overdue tasks</label>
     <label><input type="checkbox" id="completed" /> Completed tasks</label>
   </span>
 </nav>
+<%= render 'reports/report_section', :title => "Sow/Cuttings", :batches => @batches %>

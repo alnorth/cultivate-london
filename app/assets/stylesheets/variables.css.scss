@@ -1,6 +1,7 @@
 $headerBackground: #2e2e2e;
 $brandColor: #d4f6a2;
 $headerHeight: 50px;
+$headerFontSize: $headerHeight * 0.3;
 
 $navColor: #8c8c8c;
 $navColorSelected: #ffffff;
@@ -15,6 +16,7 @@ $pagePadding: 18px;
 $pageNavFontSize: 15px;
 $pageNavBorderRadius: 2px;
 $searchBoxWidth: 200px;
+$pageNavElementHeight: $pageNavFontSize + ($pagePadding * 0.6);
 
 $buttonTextColor: #626262;
 
@@ -27,3 +29,5 @@ $errorColor: #fcb3b3;
 $bottomBarColor: #ffffff;
 $bottomBarPaddingV: 10px;
 $bottomBarPaddingH: $bottomBarPaddingV * 2;
+
+$fieldsetPadding: 10px;

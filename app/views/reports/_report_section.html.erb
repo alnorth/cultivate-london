@@ -1,0 +1,48 @@
+<fieldset>
+  <legend><%= title %></legend>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Site</th>
+        <th>Crop</th>
+        <th>Type</th>
+        <th>Generation</th>
+        <th>Size</th>
+        <th>Total trays</th>
+        <th>Start</th>
+        <th>Germinate/Root</th>
+        <th>Pot/Ground</th>
+        <th>Sale</th>
+        <th>Expiry</th>
+        <th>Stage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @batches.each do |batch| %>
+        <tr>
+          <td><%= batch.site.name %></td>
+          <td><%= batch.crop.name %></td>
+          <td><%= batch.type.name %></td>
+          <td><%= batch.generation %></td>
+          <td><%= batch.size.name %></td>
+          <td><%= batch.total_trays %></td>
+          <td>W<%= batch.start_week %></td>
+          <td>W<%= batch.germinate_week %></td>
+          <td>W<%= batch.pot_week %></td>
+          <td>W<%= batch.sale_week %></td>
+          <td>W<%= batch.expiry_week %></td>
+          <td>
+            <select>
+              <option value="0">Sow / Cuttings</option>
+              <option value="1">Germinate / Root</option>
+              <option value="2">Pot / Ground</option>
+              <option value="3">Sale</option>
+              <option value="4">Expiry</option>
+            </select>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</fieldset>

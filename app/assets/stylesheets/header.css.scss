@@ -21,7 +21,7 @@ header {
       position: relative;
       height: $headerHeight;
       color: $navColor;
-      font-size: $headerHeight * 0.3;
+      font-size: $headerFontSize;
       padding-top: $headerHeight * 0.35;
       font-weight: bold;
       width: $navElementWidth;

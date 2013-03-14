@@ -13,7 +13,7 @@ div.main {
 
 @mixin page-nav-element {
   padding: 0 $pagePadding / 3;
-  height: $pageNavFontSize + ($pagePadding * 0.6);
+  height: $pageNavElementHeight;
   border-radius: $pageNavBorderRadius;
   border: 1px solid darken($backgroundColor, 10%);
 
@@ -76,8 +76,10 @@ div.main {
   input[type='checkbox'] {
     vertical-align: bottom;
     position: relative;
-    top: -1px;
+    top: 1px;
     margin: 0;
+    // Assumes that the search span includes at least one page-nav-element.
+    height: $pageNavElementHeight;
   }
 
 }
@@ -86,12 +88,12 @@ div.main {
   margin-left: $pagePadding;
 }
 
-table {
-  font-size: $bodyFontSize;
-  color: $bodyFontColor;
-  border: 1px solid darken($backgroundColor, 10%);
-  min-width: 100%;
+.page-title {
+  font-size: $headerFontSize;
+  font-weight: bold;
+}
 
+table {
   input {
     font-size: $bodyFontSize;
   }
@@ -99,15 +101,6 @@ table {
   th, td {
     padding: $tablePadding;
     text-align: left;
-  }
-
-  th {
-    border-bottom: 1px solid darken($backgroundColor, 10%);
-  }
-
-  td {
-    background-color: $tableBodyColor;
-    border-bottom: 1px solid darken($backgroundColor, 15%);
   }
 
   tbody tr:hover td {
@@ -118,5 +111,40 @@ table {
     color: $bodyFontColor;
     text-decoration: underline;
     cursor: pointer;
+  }
+}
+
+table.lined {
+  font-size: $bodyFontSize;
+  color: $bodyFontColor;
+  border: 1px solid darken($backgroundColor, 10%);
+  min-width: 100%;
+
+  th {
+    border-bottom: 1px solid darken($backgroundColor, 10%);
+  }
+
+  td {
+    background-color: $tableBodyColor;
+    border-bottom: 1px solid darken($backgroundColor, 15%);
+  }
+}
+
+fieldset {
+  font-size: $bodyFontSize;
+  color: $bodyFontColor;
+  background-color: $tableBodyColor;
+  min-height: 50px;
+  padding: $fieldsetPadding;
+  margin-left: $fieldsetPadding;
+
+  legend {
+    font-size: $headerFontSize;
+    position: relative;
+    top: $fieldsetPadding;
+    left: -$fieldsetPadding * 1.5;
+    padding: $fieldsetPadding;
+    background-color: $headerBackground;
+    color: $navColorSelected;
   }
 }
