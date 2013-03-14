@@ -4,21 +4,15 @@ require "bundler/capistrano"
 set :application, "cultivate-london"
 set :scm, :git
 set :repository,  "git://github.com/alnorth29/cultivate-london.git"
-
-set :stages, ["staging", "production"]
-set :default_stage, "staging"
-set :stage_used, "staging"
-require 'capistrano/ext/multistage'
+server "hezekiah.alnorth.com", :app, :web, :db, :primary => true
 
 set :user, "alasdair"
 set :use_sudo, false
 
-set :directory, "cultivatelondon.alnorth.com"
-
-set(:ruby_env) { stage_used }
+set :ruby_env, "production"
 set(:unicorn_env) { ruby_env }
 set(:app_env) { ruby_env }
-set(:deploy_to) { "/var/www/#{directory}" }
+set :deploy_to, "/var/www/cultivatelondon.alnorth.com"
 set(:current_path) { File.join(deploy_to, current_dir) }
 
 require 'capistrano-unicorn'
