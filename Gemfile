@@ -39,7 +39,6 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'capistrano-ext'
 gem 'capistrano-unicorn', :require => false
 
 # To use debugger
