@@ -14,7 +14,7 @@ user 'www-data', 'www-data'
 working_directory app_path
 
 # Should be 'production' by default, otherwise use other env
-rails_env = ENV['RAILS_ENV'] || 'development'
+rails_env = ENV['RAILS_ENV'] || 'staging'
 
 # Log everything to one file
 stderr_path "log/unicorn.log"
