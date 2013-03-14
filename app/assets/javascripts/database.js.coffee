@@ -77,9 +77,10 @@ class ViewModel
 
   add_new: ->
     if(!@editing())
-      b = new Batch({})
-      @data.unshift(b)
-      @editing(b)
+      b = ko.validatedObservable(new Batch({}))
+      @data.unshift(b())
+      b().beginEdit()
+      @editing(b())
 
   destroy: (batch) =>
     if @editing() is batch
