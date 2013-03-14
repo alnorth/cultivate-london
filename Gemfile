@@ -25,7 +25,6 @@ end
 
 gem 'jquery-rails'
 gem 'foreigner'
-gem 'google-webfonts'
 
 gem 'rack-mini-profiler'
 
