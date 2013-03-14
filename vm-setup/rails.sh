@@ -9,5 +9,5 @@ rvm rubygems current
 gem install rails --no-rdoc --no-ri
 
 cd /vagrant
-#bundle install
-#rake db:setup
+bundle install
+rake db:setup
