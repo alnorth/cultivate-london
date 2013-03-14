@@ -40,7 +40,6 @@
         <td class="edit-controls">
           <!-- ko ifnot: saving -->
             <a data-bind="click: $parent.edit, ifnot: $parent.editing">Edit</a>
-            <a data-bind="click: $parent.destroy">Remove</a>
           <!-- /ko -->
           <!-- ko if: saving -->
             Saving &hellip;
@@ -66,8 +65,7 @@
     <!-- ko if: $parent.editing() === $data -->
       <tr data-bind="validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
         <td class="edit-controls">
-          <a data-bind="click: $parent.save">Save</a>
-          <a data-bind="click: $parent.cancel_edit">Cancel</a>
+          <a data-bind="click: $parent.destroy">Remove</a>
         </td>
         <td data-bind="text: id"></td>
         <td class="input site-name" data-bind="validationElement: site_name">
@@ -114,6 +112,13 @@
     <!-- /ko -->
   </tbody>
 </table>
+<!-- ko if: editing() -->
+  <div class="bottom-bar">
+    <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
+    <button class="btn" data-bind="click: save">Save</button>
+    <a data-bind="click: cancel_edit">Cancel</a>
+  </div>
+<!-- /ko -->
 
 <% content_for :action_specific_js do %>
 <%= javascript_include_tag "database" %>
