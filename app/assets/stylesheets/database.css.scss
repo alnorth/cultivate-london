@@ -45,19 +45,7 @@ td.error {
   }
 
   .btn {
-    background-color: $headerBackground;
-    color: $bottomBarColor;
-    font-weight: normal;
-    border-color: darken($headerBackground, 15%);
-    box-shadow: 0 1px 0 0 lighten($headerBackground, 15%), inset 0 1px 0 0 lighten($headerBackground, 15%);
-    padding-left: $bottomBarPaddingH * 0.75;
-    padding-right: $bottomBarPaddingH * 0.75;
-
-    &:active {
-      background-color: darken($headerBackground, 15%);
-      color: darken($bottomBarColor, 15%);
-      box-shadow: 0 1px 0 0 lighten($headerBackground, 15%);
-    }
+    @include backgrounded-button($headerBackground, $bottomBarColor);
   }
 
   a {

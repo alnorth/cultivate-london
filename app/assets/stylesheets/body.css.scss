@@ -54,6 +54,22 @@ div.main {
   }
 }
 
+@mixin backgrounded-button($bgColor, $textColor) {
+  background-color: $bgColor;
+  color: $textColor;
+  font-weight: normal;
+  border-color: darken($bgColor, 15%);
+  box-shadow: 0 1px 0 0 lighten($bgColor, 15%), inset 0 1px 0 0 lighten($bgColor, 15%);
+  padding-left: $pagePadding * 0.75;
+  padding-right: $pagePadding * 0.75;
+
+  &:active {
+    background-color: darken($bgColor, 15%);
+    color: darken($textColor, 15%);
+    box-shadow: 0 1px 0 0 lighten($bgColor, 15%);
+  }
+}
+
 .search {
   display: inline-block;
 
@@ -137,6 +153,8 @@ fieldset {
   min-height: 50px;
   padding: $fieldsetPadding;
   margin-left: $fieldsetPadding;
+  border-left: 1px solid darken($backgroundColor, 5%);
+  border-right: 1px solid darken($backgroundColor, 5%);
 
   legend {
     font-size: $headerFontSize;
@@ -146,5 +164,35 @@ fieldset {
     padding: $fieldsetPadding;
     background-color: $headerBackground;
     color: $navColorSelected;
+  }
+}
+
+fieldset + fieldset, .fieldset-form-actions + fieldset {
+  margin-top: $fieldsetPadding * 3;
+}
+
+.fieldset-form-actions {
+  padding: $fieldsetPadding;
+  margin-left: $fieldsetPadding;
+
+  border: 1px solid darken($backgroundColor, 5%);
+  border-top-width: 0;
+  border-bottom-color: darken($backgroundColor, 10%);
+
+  text-align: right;
+
+  a {
+    color: $bodyFontColor;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: $pageNavFontSize;
+  }
+
+  .btn {
+    @include backgrounded-button($backgroundColor, $bodyFontColor);
+  }
+
+  a, .btn {
+    margin-left: $fieldsetPadding * 2;
   }
 }
