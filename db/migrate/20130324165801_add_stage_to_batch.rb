@@ -1,7 +1,7 @@
 class AddStageToBatch < ActiveRecord::Migration
   def change
     change_table :batches do |t|
-      t.integer :stage
+      t.string :stage
     end
   end
 end

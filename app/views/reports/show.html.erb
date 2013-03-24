@@ -9,8 +9,7 @@
     <label><input type="checkbox" id="completed" /> Completed tasks</label>
   </span>
 </nav>
-<%= render 'reports/report_section', :title => "Sow/Cuttings", :batches => @batches %>
-<%= render 'reports/report_section', :title => "Germinate/Root", :batches => @batches %>
-<%= render 'reports/report_section', :title => "Pot/Ground", :batches => @batches %>
-<%= render 'reports/report_section', :title => "Sale", :batches => @batches %>
-<%= render 'reports/report_section', :title => "Expiry", :batches => @batches %>
+<%= render 'reports/report_section', :title => "Sow/Cuttings", :batches => @batches.where("stage = ?", :sow) %>
+<%= render 'reports/report_section', :title => "Germinate/Root", :batches => @batches.where("stage = ?", :germinate) %>
+<%= render 'reports/report_section', :title => "Pot/Ground", :batches => @batches.where("stage = ?", :pot) %>
+<%= render 'reports/report_section', :title => "Sale", :batches => @batches.where("stage = ?", :sale) %>

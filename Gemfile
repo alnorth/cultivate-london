@@ -25,6 +25,7 @@ end
 
 gem 'jquery-rails'
 gem 'foreigner'
+gem 'classy_enum'
 
 gem 'rack-mini-profiler'
 

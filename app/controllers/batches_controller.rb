@@ -1,6 +1,7 @@
 class BatchesController < ApplicationController
   def create
     batch = Batch.create()
+    batch.stage = :sow
     update_and_save(batch, params[:batch])
 
     respond_to do |format|
@@ -44,5 +45,7 @@ class BatchesController < ApplicationController
     batch.expiry_week = data[:expiry_week]
 
     batch.save()
+
+    Rails.logger.info(batch.errors.inspect)
   end
 end

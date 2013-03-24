@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20130324165801) do
     t.integer  "size_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "stage"
+    t.string   "stage"
   end
 
   add_index "batches", ["category_id"], :name => "batches_category_id_fk"

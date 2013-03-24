@@ -1,4 +1,4 @@
-<% if @batches.length %>
+<% if batches.length %>
   <fieldset>
     <legend><%= title %></legend>
 
@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @batches.each do |batch| %>
+        <% batches.each do |batch| %>
           <tr>
             <td><%= batch.site.name %></td>
             <td><%= batch.crop.name %></td>
