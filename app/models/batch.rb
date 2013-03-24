@@ -5,7 +5,7 @@ class Batch < ActiveRecord::Base
   belongs_to :type
   belongs_to :size
 
-  classy_enum_attr :stage
+  classy_enum_attr :stage, :default => :sow
 
   attr_accessible :expiry_week, :generation, :germinate_week, :pot_week, :sale_week, :start_week, :total_trays, :units_per_tray, :site_id, :category_id, :crop_id, :type_id, :size_id, :stage
 

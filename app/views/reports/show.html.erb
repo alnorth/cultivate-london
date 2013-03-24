@@ -9,7 +9,23 @@
     <label><input type="checkbox" id="completed" /> Completed tasks</label>
   </span>
 </nav>
-<%= render 'reports/report_section', :title => "Sow/Cuttings", :batches => @batches.where("stage = ?", :sow) %>
-<%= render 'reports/report_section', :title => "Germinate/Root", :batches => @batches.where("stage = ?", :germinate) %>
-<%= render 'reports/report_section', :title => "Pot/Ground", :batches => @batches.where("stage = ?", :pot) %>
-<%= render 'reports/report_section', :title => "Sale", :batches => @batches.where("stage = ?", :sale) %>
+<%= render 'reports/report_section', :stage => Stage::Sow, :batches =>
+  @batches.where("(stage = ? AND start_week <= ?) OR (stage = ? AND start_week = ?)",
+      :sow, @week_number, :germinate, @week_number)
+    .order("start_week")
+%>
+<%= render 'reports/report_section', :stage => Stage::Germinate, :batches =>
+  @batches.where("(stage = ? AND germinate_week <= ?) OR (stage = ? AND germinate_week = ?)",
+      :germinate, @week_number, :pot, @week_number)
+    .order("germinate_week")
+%>
+<%= render 'reports/report_section', :stage => Stage::Pot, :batches =>
+  @batches.where("(stage = ? AND pot_week <= ?) OR (stage = ? AND pot_week = ?)",
+      :pot, @week_number, :sale, @week_number)
+    .order("pot_week")
+%>
+<%= render 'reports/report_section', :stage => Stage::Sale, :batches =>
+  @batches.where("(stage = ? AND sale_week <= ?) OR (stage = ? AND sale_week = ?)",
+      :sale, @week_number, :expiry, @week_number)
+    .order("sale_week")
+%>

@@ -34,8 +34,7 @@ Batch.create(
   germinate_week: 13,
   pot_week: 16,
   sale_week: 20,
-  expiry_week: 24,
-  stage: :sow
+  expiry_week: 24
 )
 
 Batch.create(
@@ -51,6 +50,5 @@ Batch.create(
   germinate_week: 12,
   pot_week: 13,
   sale_week: 15,
-  expiry_week: 17,
-  stage: :sow
+  expiry_week: 17
 )
