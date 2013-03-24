@@ -125,7 +125,7 @@
 
 <% content_for :action_specific_js do %>
 <%= javascript_include_tag "database" %>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
   $(function() {
     loadDatabaseData(<%= @batches.to_json.html_safe %>);
   });
