@@ -20,9 +20,21 @@
         </tr>
       </thead>
       <tbody>
-        <%= render 'reports/report_rows', :stage => stage, :batches => batches.where("stage = ? AND start_week = ?", stage.name.demodulize.downcase, @week_number) %>
-        <%= render 'reports/report_rows', :stage => stage, :batches => batches.where("stage = ? AND start_week < ?", stage.name.demodulize.downcase, @week_number) %>
-        <%= render 'reports/report_rows', :stage => stage, :batches => batches.where("stage = ?", stage.next.name.demodulize.downcase) %>
+        <%= render 'reports/report_rows',
+          :stage => stage,
+          :type => 'Current',
+          :batches => batches.where("stage = ? AND start_week = ?", stage.name.demodulize.downcase, @week_number)
+        %>
+        <%= render 'reports/report_rows',
+          :stage => stage,
+          :type => 'Overdue',
+          :batches => batches.where("stage = ? AND start_week < ?", stage.name.demodulize.downcase, @week_number)
+        %>
+        <%= render 'reports/report_rows',
+          :stage => stage,
+          :type => 'Completed',
+          :batches => batches.where("stage = ?", stage.next.name.demodulize.downcase)
+        %>
       </tbody>
     </table>
   </fieldset>

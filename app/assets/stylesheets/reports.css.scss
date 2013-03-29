@@ -6,6 +6,30 @@ fieldset table {
   }
 
   td.report-icon {
+    text-align: center;
+
+    div {
+      padding-top: 27px;
+      background-repeat: no-repeat;
+      background-position: center top;
+      font-weight: bold;
+    }
+
+    &.current div {
+      background-image: url("/img/icon_currentTasks.png");
+    }
+
+    &.overdue div {
+      background-image: url("/img/icon_overdueTasks.png");
+    }
+
+    &.completed div {
+      padding-top: 18px;
+      background-image: url("/img/icon_completedTasks.png");
+    }
+  }
+
+  td {
     vertical-align: middle;
   }
 
