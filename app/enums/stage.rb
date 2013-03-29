@@ -2,7 +2,7 @@ class Stage < ClassyEnum::Base
 end
 
 class Stage::Sow < Stage
-  def week(batch)
+  def self.week(batch)
     batch.start_week
   end
 
@@ -16,7 +16,7 @@ class Stage::Sow < Stage
 end
 
 class Stage::Germinate < Stage
-  def week(batch)
+  def self.week(batch)
     batch.germinate_week
   end
 
@@ -30,7 +30,7 @@ class Stage::Germinate < Stage
 end
 
 class Stage::Pot < Stage
-  def week(batch)
+  def self.week(batch)
     batch.pot_week
   end
 
@@ -44,7 +44,7 @@ class Stage::Pot < Stage
 end
 
 class Stage::Sale < Stage
-  def week(batch)
+  def self.week(batch)
     batch.sale_week
   end
 
@@ -58,7 +58,7 @@ class Stage::Sale < Stage
 end
 
 class Stage::Expiry < Stage
-  def week(batch)
+  def self.week(batch)
     batch.expiry_week
   end
 

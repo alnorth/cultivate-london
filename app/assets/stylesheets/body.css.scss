@@ -119,7 +119,7 @@ table {
     text-align: left;
   }
 
-  tbody tr:hover td {
+  tbody tr:hover td:not(.no-highlight) {
     background-color: lighten($brandColor, 8%);
   }
 

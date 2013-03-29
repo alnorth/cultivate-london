@@ -4,4 +4,13 @@ fieldset table {
   th {
     font-weight: bold;
   }
+
+  td.report-icon {
+    vertical-align: middle;
+  }
+
+  tr + tr.first-report-row {
+    border-top: 1px solid $backgroundColor;
+  }
 }
+
