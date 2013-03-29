@@ -17,6 +17,7 @@ set(:current_path) { File.join(deploy_to, current_dir) }
 
 require 'capistrano-unicorn'
 
+after "deploy", "deploy:migrate"
 after 'deploy:restart', 'unicorn:reload'
 
 namespace :deploy do
