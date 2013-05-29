@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
     d = Date.today
     @week_number = d.cweek
     @batches = Batch.includes([:site, :category, :crop, :size])
+      .where(:year => Date.today.year)
   end
 
   def update_stage

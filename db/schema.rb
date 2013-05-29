@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324165801) do
+ActiveRecord::Schema.define(:version => 20130529102842) do
 
   create_table "batches", :force => true do |t|
     t.integer  "generation"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130324165801) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "stage"
+    t.integer  "year"
   end
 
   add_index "batches", ["category_id"], :name => "batches_category_id_fk"

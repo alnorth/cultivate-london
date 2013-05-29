@@ -14,7 +14,7 @@ send = (url, type, data, success) ->
   )
 
 class Batch
-  constructor: (data) ->
+  constructor: (data, year) ->
     this.id = ko.observable(data.id)
 
     for key in ['generation', 'total_trays', 'units_per_tray']
@@ -28,6 +28,9 @@ class Batch
         cell = @total_trays() * @units_per_tray()
         if isNaN cell then '' else cell
       ), this)
+
+    if year?
+      @year = year
 
     @saving = ko.observable(false);
 
@@ -56,9 +59,10 @@ class Batch
       success()
 
 class ViewModel
-  constructor: (rawData) ->
+  constructor: (rawData, year) ->
     @data = ko.observableArray(ko.validatedObservable(new Batch(b)) for b in rawData)
     @editing = ko.observable()
+    @year = year
 
   edit: (batch) =>
     if(!@editing())
@@ -82,7 +86,7 @@ class ViewModel
 
   add_new: ->
     if(!@editing())
-      b = ko.validatedObservable(new Batch({}))
+      b = ko.validatedObservable(new Batch({}, @year))
       @data.unshift(b)
       b().beginEdit()
       @editing(b())
@@ -92,6 +96,10 @@ class ViewModel
       @editing(undefined)
     batch.destroy(=> @data.remove((item) -> item() is batch))
 
-window.loadDatabaseData = (databaseData) ->
-  vm = new ViewModel(databaseData)
+window.loadDatabaseData = (databaseData, year) ->
+  vm = new ViewModel(databaseData, year)
   ko.applyBindings(vm)
+
+$ ->
+  $('#year-picker').change ->
+    window.location = '/database/' + $(this).val()

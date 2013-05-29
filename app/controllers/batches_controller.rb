@@ -1,7 +1,7 @@
 class BatchesController < ApplicationController
   def create
     batch = Batch.create()
-    update_and_save(batch, params[:batch])
+    update_and_save(batch, params[:batch], true)
 
     respond_to do |format|
       format.json { render json: batch }
@@ -26,7 +26,7 @@ class BatchesController < ApplicationController
     end
   end
 
-  def update_and_save(batch, data)
+  def update_and_save(batch, data, is_new=false)
     batch.site = Site.where(:name => data[:site_name]).first_or_create()
     batch.category = Category.where(:name => data[:category_name]).first_or_create()
     batch.crop = Crop.where(:name => data[:crop_name]).first_or_create()
@@ -42,6 +42,10 @@ class BatchesController < ApplicationController
     batch.pot_week = data[:pot_week]
     batch.sale_week = data[:sale_week]
     batch.expiry_week = data[:expiry_week]
+
+    if is_new && !data[:year].nil?
+      batch.year = data[:year]
+    end
 
     batch.save()
 

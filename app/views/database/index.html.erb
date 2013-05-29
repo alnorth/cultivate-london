@@ -12,6 +12,11 @@
       <%= link_to "Clear results", { :controller => "database", :action => "index"}, :class => "clear-search" %>
     <% end %>
   </span>
+  <span class="right">
+    <select id="year-picker">
+      <%= options_for_select(2013..Date.today.year+1, @year) %>
+    </select>
+  </span>
 </nav>
 <%# Hide template until the data is bound %>
 <div style="display: none" data-bind="visible: true"/>
@@ -127,7 +132,7 @@
 <%= javascript_include_tag "database" %>
 <script type="text/javascript">
   $(function() {
-    loadDatabaseData(<%= @batches.to_json.html_safe %>);
+    loadDatabaseData(<%= @batches.to_json.html_safe %>, <%= @year %>);
   });
 </script>
 <% end %>

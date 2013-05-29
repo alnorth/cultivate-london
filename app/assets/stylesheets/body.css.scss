@@ -104,6 +104,17 @@ div.main {
   margin-left: $pagePadding;
 }
 
+nav .right {
+  float: right;
+
+  select {
+    margin: 0;
+    @include page-nav-element;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .page-title {
   font-size: $headerFontSize;
   font-weight: bold;
