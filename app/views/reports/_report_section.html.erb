@@ -1,45 +1,47 @@
 <% if batches.count > 0 %>
-  <fieldset>
-    <legend><%= stage.title %></legend>
+  <div class="report-section" data-stage="<%= stage.name.demodulize.downcase %>">
+    <fieldset>
+      <legend><%= stage.title %></legend>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Site</th>
-          <th>Crop</th>
-          <th>Type</th>
-          <th>Generation</th>
-          <th>Size</th>
-          <th>Total trays</th>
-          <th>Start</th>
-          <th>Germinate/Root</th>
-          <th>Pot/Ground</th>
-          <th>Sale</th>
-          <th>Expiry</th>
-          <th>Stage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render 'reports/report_rows',
-          :stage => stage,
-          :type => 'Current',
-          :batches => batches.where("stage = ? AND start_week = ?", stage.name.demodulize.downcase, @week_number)
-        %>
-        <%= render 'reports/report_rows',
-          :stage => stage,
-          :type => 'Overdue',
-          :batches => batches.where("stage = ? AND start_week < ?", stage.name.demodulize.downcase, @week_number)
-        %>
-        <%= render 'reports/report_rows',
-          :stage => stage,
-          :type => 'Completed',
-          :batches => batches.where("stage = ?", stage.next.name.demodulize.downcase)
-        %>
-      </tbody>
-    </table>
-  </fieldset>
-  <div class="fieldset-form-actions">
-    <a href="">Undo Changes</a>
-    <button class="btn">Update</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Site</th>
+            <th>Crop</th>
+            <th>Type</th>
+            <th>Generation</th>
+            <th>Size</th>
+            <th>Total trays</th>
+            <th>Start</th>
+            <th>Germinate/Root</th>
+            <th>Pot/Ground</th>
+            <th>Sale</th>
+            <th>Expiry</th>
+            <th>Stage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render 'reports/report_rows',
+            :stage => stage,
+            :type => 'Current',
+            :batches => batches.where("stage = ? AND start_week = ?", stage.name.demodulize.downcase, @week_number)
+          %>
+          <%= render 'reports/report_rows',
+            :stage => stage,
+            :type => 'Overdue',
+            :batches => batches.where("stage = ? AND start_week < ?", stage.name.demodulize.downcase, @week_number)
+          %>
+          <%= render 'reports/report_rows',
+            :stage => stage,
+            :type => 'Completed',
+            :batches => batches.where("stage = ?", stage.next.name.demodulize.downcase)
+          %>
+        </tbody>
+      </table>
+    </fieldset>
+    <div class="fieldset-form-actions">
+      <a href="">Undo Changes</a>
+      <button class="btn update-report">Update</button>
+    </div>
   </div>
 <% end %>

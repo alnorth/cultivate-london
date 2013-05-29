@@ -29,3 +29,7 @@
       :sale, @week_number, :expiry, @week_number)
     .order("sale_week")
 %>
+
+<% content_for :action_specific_js do %>
+<%= javascript_include_tag "reports" %>
+<% end %>

@@ -35,7 +35,7 @@ div.main {
     background-color: $brandColor;
     color: $headerBackground;
 
-    &:active {
+    &:active, &.depressed {
       background-color: darken($brandColor, 5%);
     }
   }
@@ -48,7 +48,7 @@ div.main {
       color: darken($buttonTextColor, 10%);
     }
 
-    &:active {
+    &:active, &.depressed {
       @include linear-gradient($backgroundColor, darken($backgroundColor, 10%));
     }
   }
@@ -63,7 +63,7 @@ div.main {
   padding-left: $pagePadding * 0.75;
   padding-right: $pagePadding * 0.75;
 
-  &:active {
+  &:active, &.depressed {
     background-color: darken($bgColor, 15%);
     color: darken($textColor, 15%);
     box-shadow: 0 1px 0 0 lighten($bgColor, 15%);
