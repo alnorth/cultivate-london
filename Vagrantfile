@@ -3,7 +3,7 @@
 
 # apt caching code from https://gist.github.com/millisami/3798773
 def local_cache(box_name)
-  cache_dir = File.join(File.expand_path(Vagrant::Environment::DEFAULT_HOME),
+  cache_dir = File.join(File.expand_path('~/.vagrant.d'),
                         'cache',
                         'apt',
                         box_name)
