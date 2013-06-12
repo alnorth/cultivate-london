@@ -97,26 +97,6 @@
     </div>
   <!-- /ko -->
 </div>
-<%= render 'reports/report_section', :stage => Stage::Sow, :batches =>
-  @batches.where("(stage = ? AND start_week <= ?) OR (stage = ? AND start_week = ?)",
-      :sow, @week_number, :germinate, @week_number)
-    .order("start_week")
-%>
-<%= render 'reports/report_section', :stage => Stage::Germinate, :batches =>
-  @batches.where("(stage = ? AND germinate_week <= ?) OR (stage = ? AND germinate_week = ?)",
-      :germinate, @week_number, :pot, @week_number)
-    .order("germinate_week")
-%>
-<%= render 'reports/report_section', :stage => Stage::Pot, :batches =>
-  @batches.where("(stage = ? AND pot_week <= ?) OR (stage = ? AND pot_week = ?)",
-      :pot, @week_number, :sale, @week_number)
-    .order("pot_week")
-%>
-<%= render 'reports/report_section', :stage => Stage::Sale, :batches =>
-  @batches.where("(stage = ? AND sale_week <= ?) OR (stage = ? AND sale_week = ?)",
-      :sale, @week_number, :expiry, @week_number)
-    .order("sale_week")
-%>
 
 <% content_for :action_specific_js do %>
   <%= javascript_include_tag "reports" %>
