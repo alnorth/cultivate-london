@@ -37,7 +37,7 @@ class Batch
 
     ko.editable(this)
 
-  format_week: (week) ->
+  formatWeek: (week) ->
     'W' + week
 
   toJSON: ->
@@ -77,7 +77,7 @@ class ViewModel
       batch.beginEdit()
       @editing(batch)
 
-  cancel_edit: =>
+  cancelEdit: =>
     e = @editing()
     if(!e.id())
       @data.remove(e)
@@ -92,7 +92,7 @@ class ViewModel
       e.save()
       @editing(undefined)
 
-  add_new: ->
+  addNew: ->
     if(!@editing())
       b = ko.validatedObservable(new Batch({}, @stages, @year))
       @data.unshift(b)

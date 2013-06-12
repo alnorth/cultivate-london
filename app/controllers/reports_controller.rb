@@ -11,9 +11,7 @@ class ReportsController < ApplicationController
     }}
   end
 
-  def update_stage
-    stage = params[:stage]
-
+  def update
     params[:values].each do |batch_id, new_stage|
       batch = Batch.find(batch_id)
       batch.update_attribute(:stage, new_stage)

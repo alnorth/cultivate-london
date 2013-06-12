@@ -1,5 +1,5 @@
 <nav>
-  <button class="btn primary" data-bind="click: add_new">Add New Crop</button>
+  <button class="btn primary" data-bind="click: addNew">Add New Crop</button>
   <span class="search">
     <form action="/database">
       <input type="text" placeholder="Search database" id="database-search" name="search" value="<%= @search %>"/>
@@ -63,11 +63,11 @@
           <td data-bind="text: units_per_tray"></td>
           <td data-bind="text: total_trays"></td>
           <td data-bind="text: cell_size"></td>
-          <td data-bind="text: format_week(start_week())"></td>
-          <td data-bind="text: format_week(germinate_week())"></td>
-          <td data-bind="text: format_week(pot_week())"></td>
-          <td data-bind="text: format_week(sale_week())"></td>
-          <td data-bind="text: format_week(expiry_week())"></td>
+          <td data-bind="text: formatWeek(start_week())"></td>
+          <td data-bind="text: formatWeek(germinate_week())"></td>
+          <td data-bind="text: formatWeek(pot_week())"></td>
+          <td data-bind="text: formatWeek(sale_week())"></td>
+          <td data-bind="text: formatWeek(expiry_week())"></td>
           <td data-bind="text: stage().title"></td>
         </tr>
       <!-- /ko -->
@@ -128,7 +128,7 @@
     <div class="bottom-bar">
       <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
       <button class="btn" data-bind="click: save">Save</button>
-      <a data-bind="click: cancel_edit">Cancel</a>
+      <a data-bind="click: cancelEdit">Cancel</a>
     </div>
   <!-- /ko -->
 </div>

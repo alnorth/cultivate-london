@@ -43,7 +43,11 @@ class Batch
   constructor: (data, stages) ->
     for own key, value of data
       this[key] = value
-    @stage = ko.observable(_.findWhere(stages, id: @stage))
+    @initialStage = ko.observable _.findWhere(stages, id: @stage)
+    @stage = ko.observable @initialStage()
+
+    @changed = ko.computed =>
+      @stage() isnt @initialStage()
 
 class Stage
   constructor: (data, vm) ->
@@ -63,7 +67,7 @@ class Stage
 
     @completedBatches = ko.computed =>
       _.filter vm.batches(), (b) =>
-        b.stage() is this.next() and b[@field] is vm.weekNumber
+        b.stage() is this.next() and (b.initialStage() is this or b[@field] is vm.weekNumber)
 
     @totalBatches = ko.computed =>
       @currentBatches().length + @overdueBatches().length + @completedBatches().length
@@ -79,6 +83,31 @@ class ViewModel
     @stages = ko.observableArray()
     @stages(_.map(stages, (data) => new Stage(data, this)))
     @batches(_.map(batches, (data) => new Batch(data, @stages())))
+
+    @changes = ko.computed =>
+      _.some @batches(), (b) -> b.changed()
+    @saving = ko.observable false
+
+  save: =>
+    if not @saving()
+      @saving true
+      values = _.chain(@batches())
+        .filter((b) -> b.changed())
+        .map((b) -> [b.id, b.stage().id])
+        .object()
+        .value()
+
+      $.ajax
+        url: '/reports/update',
+        type: 'POST',
+        success: () => @saving(false),
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(values: values),
+        processData: false
+
+  cancelEdit: =>
+    _.each @batches(), (b) -> b.stage(b.initialStage())
 
 window.loadReports = (batches, stages, weekNumber) ->
   vm = new ViewModel(batches, stages, weekNumber)

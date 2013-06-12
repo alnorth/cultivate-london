@@ -178,34 +178,8 @@ fieldset {
   }
 }
 
-fieldset , .fieldset-form-actions, nav {
+fieldset, nav {
   & + fieldset {
     margin-top: $fieldsetPadding * 3;
-  }
-}
-
-.fieldset-form-actions {
-  padding: $fieldsetPadding;
-  margin-left: $fieldsetPadding;
-
-  border: 1px solid darken($backgroundColor, 5%);
-  border-top-width: 0;
-  border-bottom-color: darken($backgroundColor, 10%);
-
-  text-align: right;
-
-  a {
-    color: $bodyFontColor;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: $pageNavFontSize;
-  }
-
-  .btn {
-    @include backgrounded-button($backgroundColor, $bodyFontColor);
-  }
-
-  a, .btn {
-    margin-left: $fieldsetPadding * 2;
   }
 }
