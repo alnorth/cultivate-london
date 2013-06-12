@@ -3,10 +3,11 @@ class DatabaseController < ApplicationController
     @year = params[:year] || Date.today.year
     @search = params[:search]
     @batches = get_batches(@year, @search)
+    @stages = Stage.ordered.map { |s| { :id => s.name.demodulize.downcase, :title => s.title }}
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @photos }
+      format.json { render json: @batches }
     end
   end
 

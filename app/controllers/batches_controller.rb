@@ -43,6 +43,8 @@ class BatchesController < ApplicationController
     batch.sale_week = data[:sale_week]
     batch.expiry_week = data[:expiry_week]
 
+    batch.stage = data[:stage]
+
     if is_new && !data[:year].nil?
       batch.year = data[:year]
     end

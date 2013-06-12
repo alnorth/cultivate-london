@@ -1,4 +1,7 @@
 class Stage < ClassyEnum::Base
+  def self.ordered
+    [Stage::Sow, Stage::Germinate, Stage::Pot, Stage::Sale, Stage::Expiry]
+  end
 end
 
 class Stage::Sow < Stage

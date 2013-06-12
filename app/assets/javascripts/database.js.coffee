@@ -1,6 +1,7 @@
 #= require knockout
 #= require ko.editables
 #= require knockout.validation
+#= require underscore-min
 
 send = (url, type, data, success) ->
   $.ajax(
@@ -14,7 +15,7 @@ send = (url, type, data, success) ->
   )
 
 class Batch
-  constructor: (data, year) ->
+  constructor: (data, stages, year) ->
     this.id = ko.observable(data.id)
 
     for key in ['generation', 'total_trays', 'units_per_tray']
@@ -23,6 +24,8 @@ class Batch
       this[key] = ko.observable(data[key]).extend(required: true, min: 1, max: 53, digit: true)
     for key in ['site', 'category', 'crop', 'type', 'size']
       this[key + '_name'] = ko.observable(if data[key] then data[key].name else undefined).extend(required: true)
+
+    this.stage = ko.observable(_.findWhere(stages, { id: data.stage }));
 
     @cell_size = ko.computed((->
         cell = @total_trays() * @units_per_tray()
@@ -38,6 +41,12 @@ class Batch
 
   format_week: (week) ->
     'W' + week
+
+  toJSON: ->
+    copy = ko.toJS(this)
+    if copy.stage?
+      copy.stage = copy.stage.id
+    copy
 
   save: ->
     self = this
@@ -59,8 +68,9 @@ class Batch
       success()
 
 class ViewModel
-  constructor: (rawData, year) ->
-    @data = ko.observableArray(ko.validatedObservable(new Batch(b)) for b in rawData)
+  constructor: (rawData, stages, year) ->
+    @stages = stages
+    @data = ko.observableArray(ko.validatedObservable(new Batch(b, stages)) for b in rawData)
     @editing = ko.observable()
     @year = year
 
@@ -96,8 +106,8 @@ class ViewModel
       @editing(undefined)
     batch.destroy(=> @data.remove((item) -> item() is batch))
 
-window.loadDatabaseData = (databaseData, year) ->
-  vm = new ViewModel(databaseData, year)
+window.loadDatabaseData = (databaseData, stages, year) ->
+  vm = new ViewModel(databaseData, stages, year)
   ko.applyBindings(vm)
 
 $ ->
