@@ -1,7 +1,4 @@
-#= require knockout
-#= require ko.editables
 #= require knockout.validation
-#= require underscore-min
 
 send = (url, type, data, success) ->
   $.ajax(

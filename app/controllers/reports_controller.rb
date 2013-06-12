@@ -4,6 +4,11 @@ class ReportsController < ApplicationController
     @week_number = d.cweek
     @batches = Batch.includes([:site, :category, :crop, :size])
       .where(:year => Date.today.year)
+    @stages = Stage.ordered.map { |s| {
+      :id => s.name.demodulize.downcase,
+      :title => s.title,
+      :field => s.field
+    }}
   end
 
   def update_stage
