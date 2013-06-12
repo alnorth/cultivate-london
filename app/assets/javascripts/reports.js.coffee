@@ -70,10 +70,14 @@ class ViewModel
         .object()
         .value()
 
+      success = =>
+        _.each @batches(), (b) -> b.initialStage(b.stage())
+        @saving(false)
+
       $.ajax
         url: '/reports/update',
         type: 'POST',
-        success: () => @saving(false),
+        success: success,
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(values: values),
