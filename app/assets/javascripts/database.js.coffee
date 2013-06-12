@@ -25,7 +25,8 @@ class Batch
     for key in ['site', 'category', 'crop', 'type', 'size']
       this[key + '_name'] = ko.observable(if data[key] then data[key].name else undefined).extend(required: true)
 
-    this.stage = ko.observable(_.findWhere(stages, { id: data.stage }));
+    loadedStage = _.findWhere(stages, { id: data.stage })
+    this.stage = ko.observable(loadedStage ? stages[0])
 
     @cell_size = ko.computed((->
         cell = @total_trays() * @units_per_tray()
@@ -70,7 +71,7 @@ class Batch
 class ViewModel
   constructor: (rawData, stages, year) ->
     @stages = stages
-    @data = ko.observableArray(ko.validatedObservable(new Batch(b, stages)) for b in rawData)
+    @data = ko.observableArray(ko.validatedObservable(new Batch(b, @stages)) for b in rawData)
     @editing = ko.observable()
     @year = year
 
@@ -96,7 +97,7 @@ class ViewModel
 
   add_new: ->
     if(!@editing())
-      b = ko.validatedObservable(new Batch({}, @year))
+      b = ko.validatedObservable(new Batch({}, @stages, @year))
       @data.unshift(b)
       b().beginEdit()
       @editing(b())
