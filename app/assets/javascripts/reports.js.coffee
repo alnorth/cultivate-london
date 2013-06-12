@@ -43,7 +43,7 @@ class Batch
   constructor: (data, stages) ->
     for own key, value of data
       this[key] = value
-    @stage = _.findWhere stages, id: @stage
+    @stage = ko.observable(_.findWhere(stages, id: @stage))
 
 class Stage
   constructor: (data, vm) ->
@@ -54,24 +54,32 @@ class Stage
     @field = data.field
 
     @currentBatches = ko.computed =>
-      vm.batches()
+      _.filter vm.batches(), (b) =>
+        b.stage() is this and b[@field] is vm.weekNumber
 
     @overdueBatches = ko.computed =>
-      vm.batches()
+      _.filter vm.batches(), (b) =>
+        b.stage() is this and b[@field] < vm.weekNumber
 
     @completedBatches = ko.computed =>
-      vm.batches()
+      _.filter vm.batches(), (b) =>
+        b.stage() is this.next() and b[@field] is vm.weekNumber
+
+    @totalBatches = ko.computed =>
+      @currentBatches().length + @overdueBatches().length + @completedBatches().length
+
+    @next = ko.computed =>
+      index = vm.stages().indexOf(this)
+      vm.stages()[index + 1]
 
 class ViewModel
-  constructor: (batches, stages) ->
+  constructor: (batches, stages, weekNumber) ->
+    @weekNumber = weekNumber
     @batches = ko.observableArray()
-    @stages = _.map(stages, (data) => new Stage(data, this))
-    @batches(_.map(batches, (data) -> new Batch(data, @stages)))
-    console.log @batches()
+    @stages = ko.observableArray()
+    @stages(_.map(stages, (data) => new Stage(data, this)))
+    @batches(_.map(batches, (data) => new Batch(data, @stages())))
 
-  getAvailableStages: (stage) ->
-    @stages
-
-window.loadReports = (batches, stages) ->
-  vm = new ViewModel(batches, stages)
+window.loadReports = (batches, stages, weekNumber) ->
+  vm = new ViewModel(batches, stages, weekNumber)
   ko.applyBindings vm

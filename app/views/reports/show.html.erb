@@ -31,64 +31,66 @@
       <td data-bind="text: expiry_week"></td>
 
       <td>
-        <select data-bind="options: $parent.availableStages, optionsText: 'title', value: stage"></select>
+        <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
       </td>
     </tr>
   <!-- /ko -->
 </script>
 
-<!-- ko foreach: stages -->
-  <div class="report-section">
-    <fieldset>
-      <legend data-bind="text: title"></legend>
+<!-- ko foreach: _.initial(stages()) -->
+  <!-- ko if: totalBatches() > 0 -->
+    <div class="report-section">
+      <fieldset>
+        <legend data-bind="text: title"></legend>
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Site</th>
-            <th>Crop</th>
-            <th>Type</th>
-            <th>Generation</th>
-            <th>Size</th>
-            <th>Total trays</th>
-            <th>Start</th>
-            <th>Germinate/Root</th>
-            <th>Pot/Ground</th>
-            <th>Sale</th>
-            <th>Expiry</th>
-            <th>Stage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- ko template: { name: 'report-row-template', data: {
-            batches: currentBatches,
-            typeClass: { current: true },
-            type: 'Current',
-            availableStages: $root.getAvailableStages($data) }} -->
-          <!-- /ko -->
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Site</th>
+              <th>Crop</th>
+              <th>Type</th>
+              <th>Generation</th>
+              <th>Size</th>
+              <th>Total trays</th>
+              <th>Start</th>
+              <th>Germinate/Root</th>
+              <th>Pot/Ground</th>
+              <th>Sale</th>
+              <th>Expiry</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- ko template: { name: 'report-row-template', data: {
+              batches: currentBatches,
+              typeClass: { current: true },
+              type: 'Current',
+              stage: $data }} -->
+            <!-- /ko -->
 
-          <!-- ko template: { name: 'report-row-template', data: {
-            batches: overdueBatches,
-            typeClass: { overdue: true },
-            type: 'Overdue',
-            availableStages: $root.getAvailableStages($data) }} -->
-          <!-- /ko -->
+            <!-- ko template: { name: 'report-row-template', data: {
+              batches: overdueBatches,
+              typeClass: { overdue: true },
+              type: 'Overdue',
+              stage: $data }} -->
+            <!-- /ko -->
 
-          <!-- ko template: { name: 'report-row-template', data: {
-            batches: completedBatches,
-            typeClass: { completed: true },
-            type: 'Completed',
-            availableStages: $root.getAvailableStages($data) }} -->
-          <!-- /ko -->
-        </tbody>
-      </table>
-    </fieldset>
-    <div class="fieldset-form-actions">
-      <a href="">Undo Changes</a>
-      <button class="btn update-report">Update</button>
+            <!-- ko template: { name: 'report-row-template', data: {
+              batches: completedBatches,
+              typeClass: { completed: true },
+              type: 'Completed',
+              stage: $data }} -->
+            <!-- /ko -->
+          </tbody>
+        </table>
+      </fieldset>
+      <div class="fieldset-form-actions">
+        <a href="">Undo Changes</a>
+        <button class="btn update-report">Update</button>
+      </div>
     </div>
-  </div>
+  <!-- /ko -->
 <!-- /ko -->
 <%= render 'reports/report_section', :stage => Stage::Sow, :batches =>
   @batches.where("(stage = ? AND start_week <= ?) OR (stage = ? AND start_week = ?)",
@@ -115,7 +117,7 @@
   <%= javascript_include_tag "reports" %>
   <script type="text/javascript">
     $(function() {
-      loadReports(<%= @batches.to_json.html_safe %>, <%= @stages.to_json.html_safe %>);
+      loadReports(<%= @batches.to_json.html_safe %>, <%= @stages.to_json.html_safe %>, <%= @week_number %>);
     });
   </script>
 <% end %>
