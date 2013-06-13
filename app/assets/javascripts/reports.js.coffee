@@ -57,6 +57,9 @@ class ViewModel
     @stages(_.map(stages, (data) => new Stage(data, this)))
     @batches(_.map(batches, (data) => new Batch(data, @stages())))
 
+    @includeOverdue = ko.observable false
+    @includeCompleted = ko.observable false
+
     @changes = ko.computed =>
       _.some @batches(), (b) -> b.changed()
     @saving = ko.observable false

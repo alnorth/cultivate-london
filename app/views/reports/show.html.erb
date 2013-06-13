@@ -5,8 +5,8 @@
   <span class="search">
     <button class="btn primary" id="print-tasks">Print Task List</button>
     <span>Include:</span>
-    <label><input type="checkbox" id="overdue" /> Overdue tasks</label>
-    <label><input type="checkbox" id="completed" /> Completed tasks</label>
+    <label><input type="checkbox" id="overdue" data-bind="checked: includeOverdue" /> Overdue tasks</label>
+    <label><input type="checkbox" id="completed" data-bind="checked: includeCompleted" /> Completed tasks</label>
   </span>
 </nav>
 
