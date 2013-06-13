@@ -2,16 +2,6 @@
 #= require BlobBuilder
 #= require jspdf
 
-$ ->
-  $('#print-tasks').click ->
-    doc = new jsPDF()
-    doc.text(20, 20, 'Hello world!')
-    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.')
-    doc.addPage()
-    doc.text(20, 20, 'Do you like that?')
-
-    doc.save('Test.pdf')
-
 class Batch
   constructor: (data, stages) ->
     for own key, value of data
@@ -85,6 +75,15 @@ class ViewModel
         contentType: 'application/json',
         data: JSON.stringify(values: values),
         processData: false
+
+  printTasks: =>
+    doc = new jsPDF()
+    doc.text(20, 20, 'Hello world!')
+    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.')
+    doc.addPage()
+    doc.text(20, 20, 'Do you like that?')
+
+    doc.save(_.template('Task List <%= date %>.pdf', {date: moment().format('YYYY-MM-DD')}))
 
   cancelEdit: =>
     _.each @batches(), (b) -> b.stage(b.initialStage())

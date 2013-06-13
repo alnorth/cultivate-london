@@ -15,3 +15,4 @@
 //= require knockout
 //= require ko.editables
 //= require underscore-min
+//= require moment.min
