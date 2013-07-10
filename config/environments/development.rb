@@ -34,4 +34,6 @@ CultivateLondon::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  BetterErrors::Middleware.allow_ip! "10.0.2.2"
 end
