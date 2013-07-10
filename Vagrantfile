@@ -1,34 +1,34 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# apt caching code from https://gist.github.com/millisami/3798773
-def local_cache(box_name)
-  cache_dir = File.join(File.expand_path('~/.vagrant.d'),
-                        'cache',
-                        'apt',
-                        box_name)
-  partial_dir = File.join(cache_dir, 'partial')
-  FileUtils.mkdir_p(partial_dir) unless File.exists? partial_dir
+def local_cache(box_name, cache_name)
+  cache_dir = File.join(File.expand_path("~/.vagrant.d"), "cache", cache_name, box_name)
+  if cache_name == "apt"
+    partial_dir = File.join(cache_dir, "partial")
+    FileUtils.mkdir_p(partial_dir) unless File.exists? partial_dir
+  end
   cache_dir
 end
 
-Vagrant::Config.run do |config|
-  # See online documentation at vagrantup.com.
+def box_url(box_name)
+  # Load the box from the local filesystem if possible.
+  box_file_name = box_name + ".box"
+  db_path = File.expand_path("~/Dropbox/Public/vagrant/" + box_file_name)
+  if File.exists?(db_path)
+    db_path
+  else
+    "https://dl.dropboxusercontent.com/u/15047101/vagrant/" + box_file_name
+  end
+end
 
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+Vagrant.configure("2") do |config|
+  config.vm.box = "schmoo"
+  config.vm.box_url = box_url(config.vm.box)
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
 
-  cache_dir = local_cache(config.vm.box)
+  config.vm.synced_folder File.expand_path("~/Documents/dev"), "/home/vagrant/dev/"
+  config.vm.synced_folder local_cache(config.vm.box, "apt"), "/var/cache/apt/archives/"
 
-  config.vm.share_folder "v-cache",
-                         "/var/cache/apt/archives/",
-                         cache_dir
-
-  config.vm.forward_port 3000, 3000
-
-  config.vm.provision :shell, :path => "vm-setup/setup_dev_vm.sh"
+  config.ssh.forward_agent = true
 end
