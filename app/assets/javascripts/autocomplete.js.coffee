@@ -50,3 +50,6 @@ ko.bindingHandlers.autocomplete =
       search($(element).val())
       visible true
     $(element).keyup(onchange).change(onchange)
+
+    # Close the list when clicking elsewhere
+    $(document).click -> visible false
