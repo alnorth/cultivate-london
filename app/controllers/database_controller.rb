@@ -22,6 +22,7 @@ class DatabaseController < ApplicationController
   def get_batches(year, search = nil)
     batches = Batch.includes([:site, :category, :crop, :size])
       .where(:year => year)
+      .order(["sites.name", "categories.name", "crops.name", "sizes.name", "generation"])
 
     if not search.nil?
       batches = batches.where([
