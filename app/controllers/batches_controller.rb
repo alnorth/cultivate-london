@@ -27,13 +27,13 @@ class BatchesController < ApplicationController
   end
 
   def update_and_save(batch, data, is_new=false)
-    batch.site = Site.where(name: data[:site_name]).first_or_create()
-    batch.category = Category.where(name: data[:category_name]).first_or_create()
-    batch.crop = Crop.where(name: data[:crop_name], category_id: batch.category).first_or_create()
-    batch.type = Type.where(name: data[:type_name], crop_id: batch.crop).first_or_create()
+    batch.site = Site.where(name: data[:site_name]).first_or_create
+    batch.category = Category.where(name: data[:category_name]).first_or_create
+    batch.crop = Crop.where(name: data[:crop_name], category_id: batch.category).first_or_create
+    batch.type = Type.where(name: data[:type_name], crop_id: batch.crop).first_or_create
 
     batch.generation = data[:generation]
-    batch.size = Size.where(:name => data[:size_name]).first_or_create()
+    batch.size = Size.where(:name => data[:size_name]).first_or_create
     batch.units_per_tray = data[:units_per_tray]
     batch.total_trays = data[:total_trays]
 
