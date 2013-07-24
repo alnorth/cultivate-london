@@ -7,7 +7,7 @@ getLi = (text, searchString) ->
   if searchString and searchString.length > 0
     if index > 0
       li.append c('span').text text.substr(0, index)
-    li.append c('span').addClass('highlight').text text.substr(index, searchString.length)
+    li.append c('span', 'highlight').text text.substr(index, searchString.length)
     li.append c('span').text text.substr(index + searchString.length)
   else
     li.text text
@@ -33,7 +33,7 @@ ko.bindingHandlers.autocomplete =
         ul = c('ul').append(
           _.map r, (res) ->
             getLi(res, search())
-              .click -> $(element).val(res)
+              .click -> allBindingsAccessor().value(res)
         )
         resultsDisplay.html ul
       else
