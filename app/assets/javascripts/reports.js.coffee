@@ -29,7 +29,14 @@ util =
     doc.line x2, y1, x2, y2
     doc.line x2, y2, x1, y2
     doc.line x1, y2, x1, y1
+  possiblyAddPage: (testHeight, y, doc) ->
+    if y + testHeight > util.pageHeight - util.margin
+      doc.addPage()
+      util.margin
+    else
+      y
   addStage: (stage, y, doc) ->
+    y = util.possiblyAddPage 43, y, doc
     doc.setFontSize 14
     doc.text util.margin, y, stage.title
     y += 7
@@ -40,6 +47,7 @@ util =
 
     y
   addBatches: (title, y, batches, doc) ->
+    y = util.possiblyAddPage 35, y, doc
     doc.setFontSize 12
     doc.text util.margin + 5, y, title
     y += 3
@@ -47,6 +55,7 @@ util =
       y = util.addBatch b, y, doc
     y += 5
   addBatch: (batch, y, doc) ->
+    y = util.possiblyAddPage util.batchBoxHeight, y, doc
     tickBoxSize = 6
     tickBoxPadding = (util.batchBoxHeight - tickBoxSize) / 2
     leftEdge = util.margin + 10
