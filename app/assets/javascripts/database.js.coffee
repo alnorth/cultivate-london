@@ -1,4 +1,5 @@
 #= require knockout.validation
+#= require autocomplete
 
 send = (url, type, data, success) ->
   $.ajax(
@@ -10,40 +11,6 @@ send = (url, type, data, success) ->
     data: JSON.stringify(data),
     processData: false
   )
-
-ko.bindingHandlers.autocomplete =
-  init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
-    values = valueAccessor()
-    visible = ko.observable false
-    search = ko.observable()
-    resultsDisplay = $('<div class="autocomplete-results"></div>')
-    results = ko.computed ->
-      searchString = search()
-      if not searchString
-        []
-      else if searchString.length is 0
-        values
-      else
-        _.filter values, (val) ->
-          val.indexOf(searchString) >= 0
-
-    results.subscribe ->
-      r = results()
-      if r.length > 0
-        ul = $('<ul></ul>').append(
-          _.map r, (res) ->
-            $('<li></li>')
-              .text(res)
-              .click -> $(element).val(res)
-        )
-        resultsDisplay.html ul
-      else
-        resultsDisplay.html $('<div class="no-results"></div>').text('No results')
-
-    resultsDisplay.insertAfter(element)
-    search(allBindingsAccessor().value())
-    onchange = -> search($(element).val())
-    $(element).keyup(onchange).change(onchange)
 
 class Batch
   constructor: (data, stages, year) ->
@@ -145,7 +112,6 @@ class ViewModel
 
 window.loadDatabaseData = (databaseData, staticData, year) ->
   vm = new ViewModel(databaseData, staticData, year)
-  console.log(staticData)
   ko.applyBindings(vm)
 
 $ ->
