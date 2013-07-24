@@ -42,27 +42,38 @@ util =
       y
   addStage: (stage, y, vm, doc) ->
     y = util.possiblyAddPage 43, y, doc
+
     doc.setFontSize 14
     doc.text util.margin, y, stage.title
     y += 7
 
-    y = util.addBatches 'Current tasks', y, stage.currentBatches(), util.textColour, doc
-    if vm.includeOverdue()
-      y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), util.overdueColour, doc
-    if vm.includeCompleted()
-      y = util.addBatches 'Completed tasks', y, stage.completedBatches(), util.completedColour, doc
+    batchCount = stage.currentBatches() +
+      (if vm.includeOverdue() then stage.overdueBatches().length else 0) +
+      (if vm.includeCompleted() then stage.completedBatches().length else 0)
 
+    if batchCount > 0
+      y = util.addBatches 'Current tasks', y, stage.currentBatches(), util.textColour, doc
+      if vm.includeOverdue()
+        y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), util.overdueColour, doc
+      if vm.includeCompleted()
+        y = util.addBatches 'Completed tasks', y, stage.completedBatches(), util.completedColour, doc
+    else
+      doc.setFontSize 12
+      doc.text util.margin + 5, y, 'No batches'
+      y += 13
     y
   addBatches: (title, y, batches, titleColour, doc) ->
-    y = util.possiblyAddPage 35, y, doc
-    doc.setFontSize 12
-    util.setColour titleColour, doc
-    doc.text util.margin + 5, y, title
-    util.setColour util.textColour, doc
-    y += 3
-    for b in batches
-      y = util.addBatch b, y, doc
-    y += 5
+    if batches.length > 0
+      y = util.possiblyAddPage 35, y, doc
+      doc.setFontSize 12
+      util.setColour titleColour, doc
+      doc.text util.margin + 5, y, title
+      util.setColour util.textColour, doc
+      y += 3
+      for b in batches
+        y = util.addBatch b, y, doc
+      y += 5
+    y
   addBatch: (batch, y, doc) ->
     y = util.possiblyAddPage util.batchBoxHeight, y, doc
     tickBoxSize = 6
