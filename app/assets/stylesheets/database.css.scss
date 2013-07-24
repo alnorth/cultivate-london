@@ -63,6 +63,7 @@ $autocompletePadding: 0.5em 1em;
   background-color: white;
   position: absolute;
   min-width: 200px;
+  box-shadow: #AAA 3px 3px 3px;
 
   .no-results {
     padding: $autocompletePadding;
