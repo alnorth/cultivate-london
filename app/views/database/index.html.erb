@@ -81,7 +81,7 @@
             <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown'" />
           </td>
           <td class="input" data-bind="validationElement: category_name">
-            <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown'" />
+            <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
           </td>
           <td class="input" data-bind="validationElement: crop_name">
             <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown'" />

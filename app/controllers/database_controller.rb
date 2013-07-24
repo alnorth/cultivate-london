@@ -5,6 +5,11 @@ class DatabaseController < ApplicationController
     @batches = get_batches(@year, @search)
     @staticData = {
       stages: Stage.ordered.map { |s| { :id => s.name.demodulize.downcase, :title => s.title }},
+      sites: Site.all.map { |c| c.name },
+      categories: Category.all.map { |c| c.name },
+      crops: Crop.all.map { |c| c.name },
+      types: Type.all.map { |c| c.name },
+      sizes: Size.all.map { |c| c.name }
     }
 
 

@@ -54,3 +54,30 @@ td.error {
     cursor: pointer;
   }
 }
+
+$autocompletePadding: 0.5em 1em;
+
+.autocomplete-results {
+  min-height: 2em;
+  border: 1px solid #333;
+  background-color: white;
+  position: absolute;
+  min-width: 200px;
+
+  .no-results {
+    padding: $autocompletePadding;
+    text-align: center;
+  }
+
+  ul {
+    li {
+      padding: $autocompletePadding;
+      display: block;
+
+      &:hover {
+        background-color: #EEE;
+        cursor: pointer;
+      }
+    }
+  }
+}
