@@ -4,11 +4,13 @@
 #= require jspdf.plugin.standard_fonts_metrics
 #= require jspdf.plugin.split_text_to_size
 
+# A4 dimensions (in mm) 210 × 297
 util =
   ptsInMm: (72 / 25.4)
   pageWidth: 210
   pageHeight: 297
   margin: 10
+  batchBoxHeight: 10
   textWidth: (text, doc) ->
     size = doc.internal.getFontSize()
     doc.getStringUnitWidth(text, {fontName:'Times', fontStyle:'Roman'}) * size
@@ -18,6 +20,48 @@ util =
   rightText: (text, y, rightX, doc) ->
     width = (util.textWidth text, doc) / util.ptsInMm
     doc.text(util.pageWidth - width - rightX, y, text)
+  drawBox: (lineWidth, x1, y1, x2, y2, doc) ->
+    doc.setLineWidth lineWidth
+    # Extend the vertical lines a little so we don't see the joins at the corners.
+    y1 -= lineWidth
+    y2 += lineWidth
+    doc.line x1, y1, x2, y1
+    doc.line x2, y1, x2, y2
+    doc.line x2, y2, x1, y2
+    doc.line x1, y2, x1, y1
+  addStage: (stage, y, doc) ->
+    doc.setFontSize 14
+    doc.text util.margin, y, stage.title
+    y += 7
+
+    y = util.addBatches 'Current tasks', y, stage.currentBatches(), doc
+    y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), doc
+    y = util.addBatches 'Completed tasks', y, stage.completedBatches(), doc
+
+    y
+  addBatches: (title, y, batches, doc) ->
+    doc.setFontSize 12
+    doc.text util.margin + 5, y, title
+    y += 3
+    for b in batches
+      y = util.addBatch b, y, doc
+    y += 5
+  addBatch: (batch, y, doc) ->
+    tickBoxSize = 6
+    tickBoxPadding = (util.batchBoxHeight - tickBoxSize) / 2
+    leftEdge = util.margin + 10
+    rightEdge = util.pageWidth - util.margin
+    textFontSize = 10
+
+    util.drawBox 0.3, leftEdge, y, rightEdge, y + util.batchBoxHeight, doc
+    util.drawBox 0.3, rightEdge - tickBoxSize - tickBoxPadding, y + tickBoxPadding, rightEdge - tickBoxPadding, y + tickBoxSize + tickBoxPadding, doc
+
+    doc.setFontSize textFontSize
+    text = "Site #{batch.site.name}, #{batch.crop.name}, #{batch.type.name}, Generation #{batch.generation}, #{batch.size.name}, Cell size: #{batch.cell_size()}"
+    fontHeight = textFontSize / util.ptsInMm
+    doc.text leftEdge + 2, y + fontHeight + (util.batchBoxHeight - fontHeight) / 2, text
+    y += util.batchBoxHeight + 3
+    y
 
 class Batch
   constructor: (data, stages) ->
@@ -25,6 +69,11 @@ class Batch
       this[key] = value
     @initialStage = ko.observable _.findWhere(stages, id: @stage)
     @stage = ko.observable @initialStage()
+
+    @cell_size = ko.computed((->
+        cell = @total_trays * @units_per_tray
+        if isNaN cell then '' else cell
+      ), this)
 
     @changed = ko.computed =>
       @stage() isnt @initialStage()
@@ -95,9 +144,6 @@ class ViewModel
         processData: false
 
   printTasks: =>
-    # A4 dimensions (in mm) 210 × 297
-
-
     doc = new jsPDF()
 
     # Add left and right aligned headings
@@ -117,6 +163,10 @@ class ViewModel
     util.centreText 'To Do on Week ' + @weekNumber, util.margin + 20, doc
     doc.setLineWidth 0.3
     doc.line util.margin, util.margin + 23, util.pageWidth - util.margin, util.margin + 23
+
+    currentY = util.margin + 33
+    for s in @stages()
+      currentY = util.addStage s, currentY, doc
 
     doc.save(_.template('Task List <%= date %>.pdf', {date: moment().format('YYYY-MM-DD')}))
 
