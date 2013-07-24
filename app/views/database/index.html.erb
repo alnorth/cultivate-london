@@ -78,22 +78,22 @@
           </td>
           <td data-bind="text: id"></td>
           <td class="input site-name" data-bind="validationElement: site_name">
-            <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown'" />
+            <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown', autocomplete: $root.sites" />
           </td>
           <td class="input" data-bind="validationElement: category_name">
             <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
           </td>
           <td class="input" data-bind="validationElement: crop_name">
-            <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown'" />
+            <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown', autocomplete: $root.crops" />
           </td>
           <td class="input" data-bind="validationElement: type_name">
-            <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown'" />
+            <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown', autocomplete: $root.types" />
           </td>
           <td class="input generation" data-bind="validationElement: generation">
             <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
           </td>
           <td class="input size" data-bind="validationElement: size_name">
-            <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown'" />
+            <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown', autocomplete: $root.sizes" />
           </td>
           <td class="input tray" data-bind="validationElement: units_per_tray">
             <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
