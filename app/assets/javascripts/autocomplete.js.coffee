@@ -16,7 +16,7 @@ getLi = (text, searchString) ->
 ko.bindingHandlers.autocomplete =
   init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     values = valueAccessor()
-    visible = ko.observable false
+    visible = ko.observable()
     search = ko.observable()
     resultsDisplay = c('div', 'autocomplete-results')
     results = ko.computed ->
@@ -27,19 +27,26 @@ ko.bindingHandlers.autocomplete =
         _.filter values, (val) ->
           val.toLowerCase().indexOf(searchString.toLowerCase()) >= 0
 
-    results.subscribe ->
-      r = results()
+    results.subscribe (r) ->
       if r.length > 0
         ul = c('ul').append(
           _.map r, (res) ->
             getLi(res, search())
-              .click -> allBindingsAccessor().value(res)
+              .click ->
+                allBindingsAccessor().value(res)
+                visible false
         )
         resultsDisplay.html ul
       else
         resultsDisplay.html c('div', 'no-results').text('No results')
 
-    resultsDisplay.insertAfter(element)
+    visible.subscribe (newValue) ->
+      resultsDisplay.toggle newValue
+
+    resultsDisplay.insertAfter element
+    visible false
     search(allBindingsAccessor().value())
-    onchange = -> search($(element).val())
+    onchange = ->
+      search($(element).val())
+      visible true
     $(element).keyup(onchange).change(onchange)
