@@ -4,6 +4,21 @@
 #= require jspdf.plugin.standard_fonts_metrics
 #= require jspdf.plugin.split_text_to_size
 
+util =
+  ptsInMm: (72 / 25.4)
+  pageWidth: 210
+  pageHeight: 297
+  margin: 10
+  textWidth: (text, doc) ->
+    size = doc.internal.getFontSize()
+    doc.getStringUnitWidth(text, {fontName:'Times', fontStyle:'Roman'}) * size
+  centreText: (text, y, doc) ->
+    width = (util.textWidth text, doc) / util.ptsInMm
+    doc.text((util.pageWidth - width) / 2, y, text)
+  rightText: (text, y, rightX, doc) ->
+    width = (util.textWidth text, doc) / util.ptsInMm
+    doc.text(util.pageWidth - width - rightX, y, text)
+
 class Batch
   constructor: (data, stages) ->
     for own key, value of data
@@ -81,40 +96,27 @@ class ViewModel
 
   printTasks: =>
     # A4 dimensions (in mm) 210 × 297
-    ptsInMm = 72 / 25.4
-    pageWidth = 210
-    pageHeight = 297
-    margin = 10
+
 
     doc = new jsPDF()
 
-    textWidth = (text) ->
-      size = doc.internal.getFontSize()
-      doc.getStringUnitWidth(text, {fontName:'Times', fontStyle:'Roman'}) * size
-    centreText = (text, y) ->
-      width = (textWidth text) / ptsInMm
-      doc.text((pageWidth - width) / 2, y, text)
-    rightText = (text, y, rightX) ->
-      width = (textWidth text) / ptsInMm
-      doc.text(pageWidth - width - rightX, y, text)
-
     # Add left and right aligned headings
     doc.setFontSize 8
-    doc.text margin, margin, 'Cultivate London'
-    doc.text margin, margin + 5, 'Growing Database'
+    doc.text util.margin, util.margin, 'Cultivate London'
+    doc.text util.margin, util.margin + 5, 'Growing Database'
 
-    rightText 'Task Report', margin, margin
-    rightText _.template('For week <%= weekNumber %> (starting <%= weekStart %>)', {
+    util.rightText 'Task Report', util.margin, util.margin, doc
+    util.rightText _.template('For week <%= weekNumber %> (starting <%= weekStart %>)', {
       weekNumber: @weekNumber,
       weekStart: moment().year(@year).week(@weekNumber).startOf('week').format('Do MMMM')
-    }), margin + 5, margin
-    rightText 'Printed ' + moment().format('Do MMMM'), margin + 10, margin
+    }), util.margin + 5, util.margin, doc
+    util.rightText 'Printed ' + moment().format('Do MMMM'), util.margin + 10, util.margin, doc
 
     #Add larger centered heading
     doc.setFontSize 20
-    centreText 'To Do on Week ' + @weekNumber, margin + 20
+    util.centreText 'To Do on Week ' + @weekNumber, util.margin + 20, doc
     doc.setLineWidth 0.3
-    doc.line margin, margin + 23, pageWidth - margin, margin + 23
+    doc.line util.margin, util.margin + 23, util.pageWidth - util.margin, util.margin + 23
 
     doc.save(_.template('Task List <%= date %>.pdf', {date: moment().format('YYYY-MM-DD')}))
 
