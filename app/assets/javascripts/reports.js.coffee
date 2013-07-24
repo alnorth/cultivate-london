@@ -35,15 +35,17 @@ util =
       util.margin
     else
       y
-  addStage: (stage, y, doc) ->
+  addStage: (stage, y, vm, doc) ->
     y = util.possiblyAddPage 43, y, doc
     doc.setFontSize 14
     doc.text util.margin, y, stage.title
     y += 7
 
     y = util.addBatches 'Current tasks', y, stage.currentBatches(), doc
-    y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), doc
-    y = util.addBatches 'Completed tasks', y, stage.completedBatches(), doc
+    if vm.includeOverdue()
+      y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), doc
+    if vm.includeCompleted()
+      y = util.addBatches 'Completed tasks', y, stage.completedBatches(), doc
 
     y
   addBatches: (title, y, batches, doc) ->
@@ -175,7 +177,7 @@ class ViewModel
 
     currentY = util.margin + 33
     for s in @stages()
-      currentY = util.addStage s, currentY, doc
+      currentY = util.addStage s, currentY, this, doc
 
     doc.save(_.template('Task List <%= date %>.pdf', {date: moment().format('YYYY-MM-DD')}))
 
