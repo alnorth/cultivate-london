@@ -11,6 +11,11 @@ util =
   pageHeight: 297
   margin: 10
   batchBoxHeight: 10
+  textColour: { r: 0, g: 0, b: 0 }
+  overdueColour: { r: 128, g: 0, b: 27 }
+  completedColour: { r: 87, g: 128, b: 0 }
+  setColour: (colour, doc) ->
+    doc.setTextColor(colour.r, colour.g, colour.b);
   textWidth: (text, doc) ->
     size = doc.internal.getFontSize()
     doc.getStringUnitWidth(text, {fontName:'Times', fontStyle:'Roman'}) * size
@@ -41,17 +46,19 @@ util =
     doc.text util.margin, y, stage.title
     y += 7
 
-    y = util.addBatches 'Current tasks', y, stage.currentBatches(), doc
+    y = util.addBatches 'Current tasks', y, stage.currentBatches(), util.textColour, doc
     if vm.includeOverdue()
-      y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), doc
+      y = util.addBatches 'Overdue tasks', y, stage.overdueBatches(), util.overdueColour, doc
     if vm.includeCompleted()
-      y = util.addBatches 'Completed tasks', y, stage.completedBatches(), doc
+      y = util.addBatches 'Completed tasks', y, stage.completedBatches(), util.completedColour, doc
 
     y
-  addBatches: (title, y, batches, doc) ->
+  addBatches: (title, y, batches, titleColour, doc) ->
     y = util.possiblyAddPage 35, y, doc
     doc.setFontSize 12
+    util.setColour titleColour, doc
     doc.text util.margin + 5, y, title
+    util.setColour util.textColour, doc
     y += 3
     for b in batches
       y = util.addBatch b, y, doc
