@@ -96,6 +96,9 @@
       <a data-bind="click: cancelEdit">Undo</a>
     </div>
   <!-- /ko -->
+  <!-- ko ifnot: displayedBatchCount -->
+    <div class="no-batches">There are no tasks for this week</div>
+  <!-- /ko -->
 </div>
 
 <% content_for :action_specific_js do %>

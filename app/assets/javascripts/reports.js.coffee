@@ -143,6 +143,10 @@ class ViewModel
     @stages(_.map(stages, (data) => new Stage(data, this)))
     @batches(_.map(batches, (data) => new Batch(data, @stages())))
 
+    @displayedBatchCount = ko.computed =>
+      return _.reduce _.map(_.initial(@stages()), (s) -> s.totalBatches()),
+        (memo, num) -> memo + num
+
     @includeOverdue = ko.observable false
     @includeCompleted = ko.observable false
 
