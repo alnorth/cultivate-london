@@ -66,8 +66,8 @@ class Batch
       success()
 
 class ViewModel
-  constructor: (rawData, stages, year) ->
-    @stages = stages
+  constructor: (rawData, staticData, year) ->
+    @stages = staticData.stages
     @data = ko.observableArray(ko.validatedObservable(new Batch(b, @stages)) for b in rawData)
     @editing = ko.observable()
     @year = year
@@ -104,8 +104,8 @@ class ViewModel
       @editing(undefined)
     batch.destroy(=> @data.remove((item) -> item() is batch))
 
-window.loadDatabaseData = (databaseData, stages, year) ->
-  vm = new ViewModel(databaseData, stages, year)
+window.loadDatabaseData = (databaseData, staticData, year) ->
+  vm = new ViewModel(databaseData, staticData, year)
   ko.applyBindings(vm)
 
 $ ->

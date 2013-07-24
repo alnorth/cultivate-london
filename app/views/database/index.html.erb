@@ -137,7 +137,7 @@
   <%= javascript_include_tag "database" %>
   <script type="text/javascript">
     $(function() {
-      loadDatabaseData(<%= @batches.to_json.html_safe %>, <%= @stages.to_json.html_safe %>, <%= @year %>);
+      loadDatabaseData(<%= @batches.to_json.html_safe %>, <%= @staticData.to_json.html_safe %>, <%= @year %>);
     });
   </script>
 <% end %>
