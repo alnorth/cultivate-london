@@ -1,3 +1,5 @@
+#= require jquery.scrollTo
+
 c = (tagName, cls) ->
   $("<#{tagName}></#{tagName}>").addClass(cls)
 
@@ -59,6 +61,9 @@ ko.bindingHandlers.autocomplete =
 
     displayedHtml.subscribe (newValue) ->
       resultsDisplay.html newValue
+      selected = resultsDisplay.find('li.selected')
+      if selected.length > 0
+        resultsDisplay.scrollTo(resultsDisplay.find('li.selected'))
 
     visible.subscribe (newValue) ->
       resultsDisplay.toggle newValue
