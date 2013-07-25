@@ -21,6 +21,7 @@ ko.bindingHandlers.autocomplete =
     visible = ko.observable()
     search = ko.observable()
     resultsDisplay = c('div', 'autocomplete-results')
+
     results = ko.computed ->
       searchString = search()
       if not searchString
@@ -36,20 +37,21 @@ ko.bindingHandlers.autocomplete =
           .sortBy('index')
           .value()
 
-
-    results.subscribe (r) ->
+    displayedHtml = ko.computed ->
+      r = results()
       if r.length > 0
         searchString = search()
-        ul = c('ul').append(
-          _.map r, (res) ->
-            getLi(res, searchString)
-              .click ->
-                allBindingsAccessor().value(res.text)
-                visible false
-        )
-        resultsDisplay.html ul
+        lis = _.map r, (res) ->
+          getLi(res, searchString)
+            .click ->
+              allBindingsAccessor().value(res.text)
+              visible false
+        c('ul').append lis
       else
-        resultsDisplay.html c('div', 'no-results').text('No results')
+        c('div', 'no-results').text('No results')
+
+    displayedHtml.subscribe (newValue) ->
+      resultsDisplay.html newValue
 
     visible.subscribe (newValue) ->
       resultsDisplay.toggle newValue
