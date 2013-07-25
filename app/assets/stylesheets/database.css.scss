@@ -59,6 +59,8 @@ $autocompletePadding: 0.5em 1em;
 
 .autocomplete-results {
   min-height: 2em;
+  max-height: 11em;
+  overflow-y: auto;
   border: 1px solid #333;
   background-color: white;
   position: absolute;
