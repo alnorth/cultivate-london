@@ -4,8 +4,10 @@ c = (tagName, cls) ->
 contains = (text, searchString) ->
   text.toLowerCase().indexOf searchString.toLowerCase()
 
-getLi = (res, searchString) ->
+getLi = (res, searchString, isSelected) ->
   li = c('li')
+  if isSelected
+    li.addClass 'selected'
   if searchString and searchString.length > 0
     if res.index > 0
       li.append c('span').text res.text.substr(0, res.index)
@@ -20,7 +22,12 @@ ko.bindingHandlers.autocomplete =
     values = valueAccessor()
     visible = ko.observable()
     search = ko.observable()
+    selectedIndex = ko.observable(0)
     resultsDisplay = c('div', 'autocomplete-results')
+
+    select = (text) ->
+      allBindingsAccessor().value(text)
+      visible false
 
     results = ko.computed ->
       searchString = search()
@@ -38,17 +45,17 @@ ko.bindingHandlers.autocomplete =
           .value()
 
     displayedHtml = ko.computed ->
-      r = results()
-      if r.length > 0
-        searchString = search()
-        lis = _.map r, (res) ->
-          getLi(res, searchString)
-            .click ->
-              allBindingsAccessor().value(res.text)
-              visible false
-        c('ul').append lis
-      else
-        c('div', 'no-results').text('No results')
+      if visible()
+        r = results()
+        if r.length > 0
+          searchString = search()
+          lis = _.map r, (res, index) ->
+            getLi(res, searchString, selectedIndex() is index)
+              .click -> select(res.text)
+
+          c('ul').append lis
+        else
+          c('div', 'no-results').text('No results')
 
     displayedHtml.subscribe (newValue) ->
       resultsDisplay.html newValue
@@ -59,10 +66,27 @@ ko.bindingHandlers.autocomplete =
     resultsDisplay.insertAfter element
     visible false
     search(allBindingsAccessor().value())
+
     onchange = ->
       search($(element).val())
       visible true
-    $(element).keyup(onchange).change(onchange)
+      selectedIndex 0
+    onkeyup = (event) ->
+      if event.keyCode is 38
+        selectedIndex Math.max(0, selectedIndex() - 1)
+      else if event.keyCode is 40
+        selectedIndex Math.min(results().length - 1, selectedIndex() + 1)
+      else if event.keyCode is 13 # Enter
+        select results()[selectedIndex()].text
+      else if event.keyCode is 27 # Esc
+        visible false
+      else
+        onchange()
+
+    $(element)
+      .keyup(onkeyup)
+
+    allBindingsAccessor().value.subscribe onchange
 
     # Close the list when clicking elsewhere
     $(document).click -> visible false

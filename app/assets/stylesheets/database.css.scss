@@ -77,7 +77,7 @@ $autocompletePadding: 0.5em 1em;
       padding: $autocompletePadding;
       display: block;
 
-      &:hover {
+      &:hover, &.selected {
         background-color: #EEE;
         cursor: pointer;
       }
