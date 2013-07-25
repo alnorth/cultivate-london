@@ -64,3 +64,7 @@ ko.bindingHandlers.autocomplete =
 
     # Close the list when clicking elsewhere
     $(document).click -> visible false
+
+    # Get rid of the results display when the main element is removed
+    ko.utils.domNodeDisposal.addDisposeCallback element, ->
+      $(element).remove()
