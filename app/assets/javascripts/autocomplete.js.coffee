@@ -1,16 +1,18 @@
 c = (tagName, cls) ->
   $("<#{tagName}></#{tagName}>").addClass(cls)
 
-getLi = (text, searchString) ->
-  index = text.toLowerCase().indexOf searchString.toLowerCase()
+contains = (text, searchString) ->
+  text.toLowerCase().indexOf searchString.toLowerCase()
+
+getLi = (res, searchString) ->
   li = c('li')
   if searchString and searchString.length > 0
-    if index > 0
-      li.append c('span').text text.substr(0, index)
-    li.append c('span', 'highlight').text text.substr(index, searchString.length)
-    li.append c('span').text text.substr(index + searchString.length)
+    if res.index > 0
+      li.append c('span').text res.text.substr(0, res.index)
+    li.append c('span', 'highlight').text res.text.substr(res.index, searchString.length)
+    li.append c('span').text res.text.substr(res.index + searchString.length)
   else
-    li.text text
+    li.text res.text
   li
 
 ko.bindingHandlers.autocomplete =
@@ -22,18 +24,27 @@ ko.bindingHandlers.autocomplete =
     results = ko.computed ->
       searchString = search()
       if not searchString
-        values
+        _.map(values, (v) -> text: v)
       else
-        _.filter values, (val) ->
-          val.toLowerCase().indexOf(searchString.toLowerCase()) >= 0
+        _.chain(values)
+          .map((val) ->
+            index: contains(val, searchString)
+            text: val
+          )
+          .filter((v) -> v.index >= 0)
+          .sortBy('text')
+          .sortBy('index')
+          .value()
+
 
     results.subscribe (r) ->
       if r.length > 0
+        searchString = search()
         ul = c('ul').append(
           _.map r, (res) ->
-            getLi(res, search())
+            getLi(res, searchString)
               .click ->
-                allBindingsAccessor().value(res)
+                allBindingsAccessor().value(res.text)
                 visible false
         )
         resultsDisplay.html ul
