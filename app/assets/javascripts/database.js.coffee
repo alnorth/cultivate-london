@@ -1,6 +1,5 @@
-#= require knockout
-#= require ko.editables
 #= require knockout.validation
+#= require autocomplete
 
 send = (url, type, data, success) ->
   $.ajax(
@@ -14,25 +13,39 @@ send = (url, type, data, success) ->
   )
 
 class Batch
-  constructor: (data) ->
-    for key in ['id', 'generation', 'total_trays', 'units_per_tray']
+  constructor: (data, stages, year) ->
+    this.id = ko.observable(data.id)
+
+    for key in ['generation', 'total_trays', 'units_per_tray']
       this[key] = ko.observable(data[key]).extend(required: true, digit: true, min: 1)
     for key in ['start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week']
       this[key] = ko.observable(data[key]).extend(required: true, min: 1, max: 53, digit: true)
     for key in ['site', 'category', 'crop', 'type', 'size']
       this[key + '_name'] = ko.observable(if data[key] then data[key].name else undefined).extend(required: true)
 
+    loadedStage = _.findWhere(stages, { id: data.stage })
+    this.stage = ko.observable(loadedStage ? stages[0])
+
     @cell_size = ko.computed((->
         cell = @total_trays() * @units_per_tray()
         if isNaN cell then '' else cell
       ), this)
 
+    if year?
+      @year = year
+
     @saving = ko.observable(false)
 
     ko.editable(this)
 
-  format_week: (week) ->
+  formatWeek: (week) ->
     'W' + week
+
+  toJSON: ->
+    copy = ko.toJS(this)
+    if copy.stage?
+      copy.stage = copy.stage.id
+    copy
 
   save: ->
     self = this
@@ -48,19 +61,29 @@ class Batch
 
   destroy: (success) ->
     @saving(true)
+    if this.id()
     send '/batches/' + this.id(), 'DELETE', {}, success
+    else
+      success()
 
 class ViewModel
-  constructor: (rawData) ->
-    @data = ko.observableArray(ko.validatedObservable(new Batch(b)) for b in rawData)
+  constructor: (rawData, staticData, year) ->
+    @stages = staticData.stages
+    @sites = staticData.sites
+    @categories = staticData.categories
+    @crops = staticData.crops
+    @types = staticData.types
+    @sizes = staticData.sizes
+    @data = ko.observableArray(ko.validatedObservable(new Batch(b, @stages)) for b in rawData)
     @editing = ko.observable()
+    @year = year
 
   edit: (batch) =>
     if(!@editing())
       batch.beginEdit()
       @editing(batch)
 
-  cancel_edit: =>
+  cancelEdit: =>
     e = @editing()
     if(!e.id())
       @data.remove(e)
@@ -75,17 +98,22 @@ class ViewModel
       e.save()
       @editing(undefined)
 
-  add_new: =>
+  addNew: =>
     if(!@editing())
-      b = new Batch({})
+      b = ko.validatedObservable(new Batch({}, @stages, @year))
       @data.unshift(b)
-      @editing(b)
+      b().beginEdit()
+      @editing(b())
 
   destroy: (batch) =>
     if @editing() is batch
       @editing(undefined)
-    batch.destroy(=> @data.remove(batch))
+    batch.destroy(=> @data.remove((item) -> item() is batch))
 
-window.loadDatabaseData = (databaseData) ->
-  vm = new ViewModel(databaseData)
+window.loadDatabaseData = (databaseData, staticData, year) ->
+  vm = new ViewModel(databaseData, staticData, year)
   ko.applyBindings(vm)
+
+$ ->
+  $('#year-picker').change ->
+    window.location = '/database/' + $(this).val()

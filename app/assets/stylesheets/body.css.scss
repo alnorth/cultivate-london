@@ -13,7 +13,7 @@ div.main {
 
 @mixin page-nav-element {
   padding: 0 $pagePadding / 3;
-  height: $pageNavFontSize + ($pagePadding * 0.6);
+  height: $pageNavElementHeight;
   border-radius: $pageNavBorderRadius;
   border: 1px solid darken($backgroundColor, 10%);
 
@@ -35,7 +35,7 @@ div.main {
     background-color: $brandColor;
     color: $headerBackground;
 
-    &:active {
+    &:active, &.depressed {
       background-color: darken($brandColor, 5%);
     }
   }
@@ -48,9 +48,25 @@ div.main {
       color: darken($buttonTextColor, 10%);
     }
 
-    &:active {
+    &:active, &.depressed {
       @include linear-gradient($backgroundColor, darken($backgroundColor, 10%));
     }
+  }
+}
+
+@mixin backgrounded-button($bgColor, $textColor) {
+  background-color: $bgColor;
+  color: $textColor;
+  font-weight: normal;
+  border-color: darken($bgColor, 15%);
+  box-shadow: 0 1px 0 0 lighten($bgColor, 15%), inset 0 1px 0 0 lighten($bgColor, 15%);
+  padding-left: $pagePadding * 0.75;
+  padding-right: $pagePadding * 0.75;
+
+  &:active, &.depressed {
+    background-color: darken($bgColor, 15%);
+    color: darken($textColor, 15%);
+    box-shadow: 0 1px 0 0 lighten($bgColor, 15%);
   }
 }
 
@@ -67,10 +83,19 @@ div.main {
     display: inline-block;
   }
 
-  .search-results, a.clear-search, a.clear-search:visited {
+  span, a, a:visited, label {
     font-size: $bodyFontSize;
     color: $buttonTextColor;
     margin-left: $pagePadding / 1.5;
+  }
+
+  input[type='checkbox'] {
+    vertical-align: bottom;
+    position: relative;
+    top: 1px;
+    margin: 0;
+    // Assumes that the search span includes at least one page-nav-element.
+    height: $pageNavElementHeight;
   }
 
 }
@@ -79,12 +104,23 @@ div.main {
   margin-left: $pagePadding;
 }
 
-table {
-  font-size: $bodyFontSize;
-  color: $bodyFontColor;
-  border: 1px solid darken($backgroundColor, 10%);
-  min-width: 100%;
+nav .right {
+  float: right;
 
+  select {
+    margin: 0;
+    @include page-nav-element;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.page-title {
+  font-size: $headerFontSize;
+  font-weight: bold;
+}
+
+table {
   input {
     font-size: $bodyFontSize;
   }
@@ -94,6 +130,23 @@ table {
     text-align: left;
   }
 
+  tbody tr:hover td:not(.no-highlight) {
+    background-color: lighten($brandColor, 8%);
+  }
+
+  a {
+    color: $bodyFontColor;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+table.lined {
+  font-size: $bodyFontSize;
+  color: $bodyFontColor;
+  border: 1px solid darken($backgroundColor, 10%);
+  min-width: 100%;
+
   th {
     border-bottom: 1px solid darken($backgroundColor, 10%);
   }
@@ -102,14 +155,31 @@ table {
     background-color: $tableBodyColor;
     border-bottom: 1px solid darken($backgroundColor, 15%);
   }
+}
 
-  tbody tr:hover td {
-    background-color: lighten($brandColor, 8%);
+fieldset {
+  font-size: $bodyFontSize;
+  color: $bodyFontColor;
+  background-color: $tableBodyColor;
+  min-height: 50px;
+  padding: $fieldsetPadding;
+  margin-left: $fieldsetPadding;
+  border-left: 1px solid darken($backgroundColor, 5%);
+  border-right: 1px solid darken($backgroundColor, 5%);
+
+  legend {
+    font-size: $headerFontSize;
+    position: relative;
+    top: $fieldsetPadding;
+    left: -$fieldsetPadding * 1.5;
+    padding: $fieldsetPadding;
+    background-color: $headerBackground;
+    color: $navColorSelected;
   }
+}
 
-  a {
-    color: $bodyFontColor;
-    text-decoration: underline;
-    cursor: pointer;
+fieldset, nav {
+  & + fieldset {
+    margin-top: $fieldsetPadding * 3;
   }
 }

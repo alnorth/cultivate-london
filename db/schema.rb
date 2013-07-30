@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228223410) do
+ActiveRecord::Schema.define(:version => 20130529102842) do
 
   create_table "batches", :force => true do |t|
     t.integer  "generation"
@@ -29,13 +29,9 @@ ActiveRecord::Schema.define(:version => 20130228223410) do
     t.integer  "size_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "stage"
+    t.integer  "year"
   end
-
-  add_index "batches", ["category_id"], :name => "batches_category_id_fk"
-  add_index "batches", ["crop_id"], :name => "batches_crop_id_fk"
-  add_index "batches", ["site_id"], :name => "batches_site_id_fk"
-  add_index "batches", ["size_id"], :name => "batches_size_id_fk"
-  add_index "batches", ["type_id"], :name => "batches_type_id_fk"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -52,8 +48,7 @@ ActiveRecord::Schema.define(:version => 20130228223410) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "crops", ["category_id"], :name => "crops_category_id_fk"
-  add_index "crops", ["name"], :name => "index_crops_on_name", :unique => true
+  add_index "crops", ["name", "category_id"], :name => "index_crops_on_name_and_category_id", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -78,8 +73,7 @@ ActiveRecord::Schema.define(:version => 20130228223410) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "types", ["crop_id"], :name => "types_crop_id_fk"
-  add_index "types", ["name"], :name => "index_types_on_name", :unique => true
+  add_index "types", ["name", "crop_id"], :name => "index_types_on_name_and_crop_id", :unique => true
 
   add_foreign_key "batches", "categories", :name => "batches_category_id_fk", :dependent => :delete
   add_foreign_key "batches", "crops", :name => "batches_crop_id_fk", :dependent => :delete

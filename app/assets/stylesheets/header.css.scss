@@ -2,12 +2,10 @@
 header {
   background-color: $headerBackground;
   height: $headerHeight;
-  font-family: 'Lato', sans-serif;
 
   span.brand {
     display: block;
     color: $brandColor;
-    font-size: $headerHeight * 0.6;
     padding-top: $headerHeight * 0.2;
     margin-left: $headerHeight * 0.4;
     height: $headerHeight;
@@ -23,15 +21,32 @@ header {
       position: relative;
       height: $headerHeight;
       color: $navColor;
-      font-size: $headerHeight * 0.3;
+      font-size: $headerFontSize;
       padding-top: $headerHeight * 0.35;
       font-weight: bold;
       width: $navElementWidth;
-      padding-left: $navIconWidth + 10;
+      padding-left: $navIconWidth + $navIconPadding * 2.5;
       box-shadow: -1px 0 0 0 lighten($headerBackground, 20%), -2px 0 0 0 darken($headerBackground, 20%);
+
+      background-repeat: no-repeat;
+      background-position: $navIconPadding * 1.5 center;
 
       &:hover, &.selected {
         color: $navColorSelected;
+      }
+
+      &.database {
+        background-image: url('/img/icon_database_unselected.png');
+        &:hover, &.selected {
+          background-image: url('/img/icon_database_selected.png');
+        }
+      }
+
+      &.reports {
+        background-image: url('/img/icon_report_unselected.png');
+        &:hover, &.selected {
+          background-image: url('/img/icon_report_selected.png');
+        }
       }
 
       &.selected:after {

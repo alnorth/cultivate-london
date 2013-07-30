@@ -6,20 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-lr = Site.create(name: 'LR')
-bf = Site.create(name: 'BF')
+lr = Site.where(name: 'LR').first_or_create
+bf = Site.where(name: 'BF').first_or_create
 
-veg = Category.create(name: 'Baby veg')
-salad = Category.create(name: 'Peppery salad')
+veg = Category.where(name: 'Baby veg').first_or_create
+salad = Category.where(name: 'Peppery salad').first_or_create
 
-toms = Crop.create(name: 'Tomatoes', category_id: veg.id)
-mizuna = Crop.create(name: 'Mizuna', category_id: salad.id)
+toms = Crop.where(name: 'Tomatoes', category_id: veg).first_or_create
+mizuna = Crop.where(name: 'Mizuna', category_id: salad).first_or_create
 
-gardeners = Type.create(name: "Gardener's", crop_id: toms.id)
-mizuna_type = Type.create(name: "Mizuna", crop_id: mizuna.id)
+gardeners = Type.where(name: "Gardener's", crop_id: toms).first_or_create
+mizuna_type = Type.where(name: "Mizuna", crop_id: mizuna).first_or_create
 
-field = Size.create(name: 'Field')
-ninecm = Size.create(name: '9cm')
+field = Size.where(name: 'Field').first_or_create
+ninecm = Size.where(name: '9cm').first_or_create
 
 Batch.create(
   site_id: lr.id,

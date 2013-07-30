@@ -12,3 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require knockout
+//= require ko.editables
+//= require underscore-min
+//= require moment.min

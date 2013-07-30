@@ -1,0 +1,111 @@
+<nav>
+  <span class="page-title">
+    Week <%= @week_number %>
+  </span>
+  <span class="search">
+    <button class="btn primary" id="print-tasks" data-bind="click: printTasks">Download Task List</button>
+    <span>Include:</span>
+    <label><input type="checkbox" id="overdue" data-bind="checked: includeOverdue" /> Overdue tasks</label>
+    <label><input type="checkbox" id="completed" data-bind="checked: includeCompleted" /> Completed tasks</label>
+  </span>
+</nav>
+
+<script type="text/html" id="report-row-template">
+  <!-- ko foreach: batches -->
+    <tr data-bind="css: { 'first-report-row': $index() === 0 }">
+      <!-- ko if: $index() === 0 -->
+        <td data-bind="attr: { rowspan: $parent.batches().length }, css: $parent.typeClass" class="report-icon no-highlight">
+          <div data-bind="text: $parent.type"></div>
+        </td>
+      <!-- /ko -->
+      <td data-bind="text: site.name"></td>
+      <td data-bind="text: crop.name"></td>
+      <td data-bind="text: type.name"></td>
+      <td data-bind="text: generation"></td>
+      <td data-bind="text: size.name"></td>
+      <td data-bind="text: total_trays"></td>
+      <td data-bind="text: start_week"></td>
+      <td data-bind="text: germinate_week"></td>
+      <td data-bind="text: pot_week"></td>
+      <td data-bind="text: sale_week"></td>
+      <td data-bind="text: expiry_week"></td>
+
+      <td>
+        <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
+      </td>
+    </tr>
+  <!-- /ko -->
+</script>
+
+<div style="display: none" data-bind="visible: true"/>
+  <!-- ko foreach: _.initial(stages()) -->
+    <!-- ko if: totalBatches() > 0 -->
+      <div class="report-section">
+        <fieldset>
+          <legend data-bind="text: title"></legend>
+
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Site</th>
+                <th>Crop</th>
+                <th>Type</th>
+                <th>Generation</th>
+                <th>Size</th>
+                <th>Total trays</th>
+                <th>Start</th>
+                <th>Germinate/Root</th>
+                <th>Pot/Ground</th>
+                <th>Sale</th>
+                <th>Expiry</th>
+                <th>Stage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ko template: { name: 'report-row-template', data: {
+                batches: currentBatches,
+                typeClass: { current: true },
+                type: 'Current',
+                stage: $data }} -->
+              <!-- /ko -->
+
+              <!-- ko template: { name: 'report-row-template', data: {
+                batches: overdueBatches,
+                typeClass: { overdue: true },
+                type: 'Overdue',
+                stage: $data }} -->
+              <!-- /ko -->
+
+              <!-- ko template: { name: 'report-row-template', data: {
+                batches: completedBatches,
+                typeClass: { completed: true },
+                type: 'Completed',
+                stage: $data }} -->
+              <!-- /ko -->
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
+    <!-- /ko -->
+  <!-- /ko -->
+  <!-- ko if: changes() -->
+    <div class="bottom-bar">
+      <span class="title">Update Crops</span>
+      <button class="btn" data-bind="click: save, css: { depressed: saving }">Save</button>
+      <a data-bind="click: cancelEdit">Undo</a>
+    </div>
+  <!-- /ko -->
+  <!-- ko ifnot: displayedBatchCount -->
+    <div class="no-batches">There are no tasks for this week</div>
+  <!-- /ko -->
+</div>
+
+<% content_for :action_specific_js do %>
+  <%= javascript_include_tag "reports" %>
+  <script type="text/javascript">
+    $(function() {
+      loadReports(<%= @batches.to_json.html_safe %>, <%= @stages.to_json.html_safe %>, <%= @week_number %>);
+    });
+  </script>
+<% end %>

@@ -23,3 +23,68 @@ td.edit-controls {
 td.error {
   background-color: $errorColor !important;
 }
+
+.bottom-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $headerBackground;
+  color: $bottomBarColor;
+  padding: $bottomBarPaddingV $bottomBarPaddingH;
+
+  .title, .btn, a {
+    margin-right: $bottomBarPaddingH;
+  }
+
+  .title {
+    font-weight: bold;
+    padding-right: $bottomBarPaddingH;
+    box-shadow: 1px 0 0 0 darken($headerBackground, 20%), 2px 0 0 0 lighten($headerBackground, 20%);
+  }
+
+  .btn {
+    @include backgrounded-button($headerBackground, $bottomBarColor);
+  }
+
+  a {
+    color: $bottomBarColor;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+$autocompletePadding: 0.5em 1em;
+
+.autocomplete-results {
+  min-height: 2em;
+  max-height: 11em;
+  overflow-y: auto;
+  border: 1px solid #333;
+  background-color: white;
+  position: absolute;
+  min-width: 200px;
+  box-shadow: #AAA 3px 3px 3px;
+
+  .no-results {
+    padding: $autocompletePadding;
+    text-align: center;
+  }
+
+  ul {
+    li {
+      padding: $autocompletePadding;
+      display: block;
+
+      &:hover, &.selected {
+        background-color: #EEE;
+        cursor: pointer;
+      }
+
+      .highlight {
+        text-decoration: underline;
+      }
+    }
+  }
+}

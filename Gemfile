@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'pg'
 
 
 # Gems used only for assets and not required
@@ -23,11 +23,14 @@ group :assets do
   gem 'knockoutjs-rails'
 end
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 gem 'jquery-rails'
 gem 'foreigner'
-gem 'google-webfonts'
-
-gem 'rack-mini-profiler'
+gem 'classy_enum'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -40,7 +43,7 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'capistrano-ext'
+gem 'capistrano-unicorn', :require => false
 
 # To use debugger
 # gem 'debugger'
