@@ -27,7 +27,7 @@ class Batch
         if isNaN cell then '' else cell
       ), this)
 
-    @saving = ko.observable(false);
+    @saving = ko.observable(false)
 
     ko.editable(this)
 
@@ -75,7 +75,7 @@ class ViewModel
       e.save()
       @editing(undefined)
 
-  add_new: ->
+  add_new: =>
     if(!@editing())
       b = new Batch({})
       @data.unshift(b)
