@@ -1,13 +1,10 @@
 source 'https://rubygems.org'
-ruby '1.9.3' #Keep this at 1.9.3 for Heroku San's sake until this issue is fixed: https://github.com/heroku/toolbelt/issues/63
+#Keep this at 1.9.3 for Heroku San's sake until this issue is fixed: https://github.com/heroku/toolbelt/issues/63
+ruby '1.9.3'
 
 gem 'rails', '3.2.14'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'pg'
-
 
 # Gems used only for assets and not required
 # in production environments by default.
