@@ -6,6 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+def create_user(email, password, is_admin)
+  user = User.new(
+    :email => email,
+    :password => password,
+    :password_confirmation => password,
+    :is_admin => is_admin)
+  if defined? user.skip_confirmation!
+    user.skip_confirmation!
+  end
+  user.save!
+end
+
+create_user 'alnorth@gmail.com', 'password', true
+
 if Rails.env.development?
 
   lr = Site.where(name: 'LR').first_or_create
