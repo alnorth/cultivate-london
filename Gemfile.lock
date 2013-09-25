@@ -50,10 +50,16 @@ GEM
     coffee-script-source (1.6.2)
     debug_inspector (0.0.2)
     erubis (2.7.0)
+    excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     foreigner (1.4.0)
       activerecord (>= 3.0.0)
+    heroku-api (0.3.15)
+      excon (~> 0.25.1)
+    heroku_san (4.3.0)
+      heroku-api (>= 0.1.2)
+      rake
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -133,6 +139,7 @@ DEPENDENCIES
   classy_enum
   coffee-rails (~> 3.2.1)
   foreigner
+  heroku_san
   jquery-rails
   knockoutjs-rails
   newrelic_rpm

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '1.9.3' #Keep this at 1.9.3 for Heroku San's sake until this issue is fixed: https://github.com/heroku/toolbelt/issues/63
 
 gem 'rails', '3.2.13'
 
@@ -27,6 +27,8 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'heroku_san'
 end
 
 gem 'jquery-rails'
