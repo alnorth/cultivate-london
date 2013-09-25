@@ -28,8 +28,10 @@ div.main {
   font-weight: bold;
   font-size: $pageNavFontSize;
   cursor: pointer;
+  text-decoration: none;
   @include user-select(none);
   @include page-nav-element;
+  line-height: $pageNavElementHeight;
 
   &.primary {
     background-color: $brandColor;
