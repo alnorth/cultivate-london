@@ -17,6 +17,7 @@ production:
     - pgbackups:auto-month
     - logentries:tryit
     - newrelic:standard
+    - mandrill:starter
   stack: cedar
   config:
     BUNDLE_WITHOUT: "development:test"

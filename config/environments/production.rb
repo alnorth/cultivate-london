@@ -51,6 +51,18 @@ CultivateLondon::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.default_url_options = { :host => 'cultivate-london.herokuapp.com' }
+
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 587,
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name => "app17128707@heroku.com",
+    :password  => "iIFic00VpFAIygfUQHewIg", # SMTP password is any valid API key
+    :authentication => 'login', # Mandrill supports 'plain' or 'login'
+    :domain => 'cultivate-london.herokuapp.com', # your domain to identify your server when connecting
+  }
+
   # Enable threaded mode
   # config.threadsafe!
 
