@@ -4,9 +4,8 @@
   <table>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
+        <td><%= link_to user.email, edit_user_path(user) %></td>
         <td><%= user.is_admin ? 'Admin' : '' %></td>
-        <td class="edit"><%= link_to 'Show', user %></td>
         <td class="edit"><%= link_to 'Edit', edit_user_path(user) %></td>
         <td class="edit"><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
