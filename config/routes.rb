@@ -1,4 +1,5 @@
 CultivateLondon::Application.routes.draw do
+  resources :users
   devise_for :users, :skip => [:registrations]
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
