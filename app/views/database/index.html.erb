@@ -9,7 +9,7 @@
       <span class="search-results">
         <%= pluralize(@batches.count, "result") %> found
       </span>
-      <%= link_to "Clear results", { :controller => "database", :action => "index"}, :class => "clear-search" %>
+      <%= link_to "Clear results", database_path, :class => "clear-search" %>
     <% end %>
   </span>
   <span class="right">

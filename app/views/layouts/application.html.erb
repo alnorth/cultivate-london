@@ -8,8 +8,8 @@
 <body>
   <header>
     <nav>
-      <%= link_to "Database", { :controller => "database", :action => "index"}, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
-      <%= link_to "Reports", {:controller => "reports", :action => "show"}, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
+      <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
+      <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
     </nav>
     <span class="brand"><a href="/"><img src="/img/landManagementLogo_v01.png" /></a></span>
   </header>
