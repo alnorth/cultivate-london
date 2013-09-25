@@ -62,7 +62,7 @@ class Batch
   destroy: (success) ->
     @saving(true)
     if this.id()
-    send '/batches/' + this.id(), 'DELETE', {}, success
+      send '/batches/' + this.id(), 'DELETE', {}, success
     else
       success()
 
