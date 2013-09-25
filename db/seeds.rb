@@ -19,6 +19,9 @@ def create_user(email, password, is_admin)
 end
 
 create_user 'alnorth@gmail.com', 'password', true
+create_user 'adrienne@cultivatelondon.org', 'password', true
+create_user 'ben@cultivatelondon.org', 'password', true
+create_user 'hlnmrrs@gmail.com', 'password', true
 
 if Rails.env.development?
 
