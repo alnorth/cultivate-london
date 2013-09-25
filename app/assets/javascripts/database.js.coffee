@@ -34,7 +34,7 @@ class Batch
     if year?
       @year = year
 
-    @saving = ko.observable(false);
+    @saving = ko.observable(false)
 
     ko.editable(this)
 
@@ -62,7 +62,7 @@ class Batch
   destroy: (success) ->
     @saving(true)
     if this.id()
-      send '/batches/' + this.id(), 'DELETE', {}, success
+    send '/batches/' + this.id(), 'DELETE', {}, success
     else
       success()
 
@@ -98,7 +98,7 @@ class ViewModel
       e.save()
       @editing(undefined)
 
-  addNew: ->
+  addNew: =>
     if(!@editing())
       b = ko.validatedObservable(new Batch({}, @stages, @year))
       @data.unshift(b)
