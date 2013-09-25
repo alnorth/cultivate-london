@@ -36,6 +36,7 @@ gem 'devise'
 gem 'cancan'
 
 gem 'newrelic_rpm'
+gem 'rails_12factor'
 
 # Use unicorn as the app server
 gem 'unicorn'
