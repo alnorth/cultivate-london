@@ -38,14 +38,6 @@ GEM
       sass (>= 3.2.0)
       thor
     builder (3.0.4)
-    capistrano (2.14.2)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
-    capistrano-unicorn (0.1.7)
-      capistrano
     classy_enum (3.2.0)
       rails (>= 3.0)
     coderay (1.0.9)
@@ -62,7 +54,6 @@ GEM
       multi_json (~> 1.0)
     foreigner (1.4.0)
       activerecord (>= 3.0.0)
-    highline (1.6.16)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -79,13 +70,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     multi_json (1.7.2)
-    net-scp (1.1.0)
-      net-ssh (>= 2.6.5)
-    net-sftp (2.1.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.6.6)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
+    newrelic_rpm (3.6.7.159)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -145,13 +130,12 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bourbon
-  capistrano
-  capistrano-unicorn
   classy_enum
   coffee-rails (~> 3.2.1)
   foreigner
   jquery-rails
   knockoutjs-rails
+  newrelic_rpm
   pg
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
