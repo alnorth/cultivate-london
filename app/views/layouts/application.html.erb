@@ -8,6 +8,9 @@
 <body>
   <header>
     <nav>
+      <% if can? :manage, User %>
+        <%= link_to "Users", users_path, :class => "users " + (controller.controller_name == "users" ? "selected" : "") %>
+      <% end %>
       <% if can? :manage, Batch %>
         <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
         <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
