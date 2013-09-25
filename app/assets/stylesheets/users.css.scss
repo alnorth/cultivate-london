@@ -16,4 +16,19 @@ fieldset.login-box {
   i {
     font-style: italic;
   }
+
+  #error_explanation {
+    margin-top: 1em;
+    color: $loginErrorColor;
+
+    h2 {
+      font-weight: bold;
+    }
+
+    ul {
+      margin-top: 0.5em;
+      margin-left: 20px;
+      list-style: disc;
+    }
+  }
 }
