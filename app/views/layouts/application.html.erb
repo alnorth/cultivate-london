@@ -8,8 +8,10 @@
 <body>
   <header>
     <nav>
-      <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
-      <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
+      <% if can? :manage, Batch %>
+        <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
+        <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
+      <% end %>
     </nav>
     <ul class="user-account">
       <%= render 'devise/menu/registration_items' %>

@@ -1,5 +1,7 @@
 class DatabaseController < ApplicationController
   def index
+    authorize! :manage, Batch
+
     @year = params[:year] || Date.today.year
     @search = params[:search]
     @batches = get_batches(@year, @search)
@@ -20,6 +22,8 @@ class DatabaseController < ApplicationController
   end
 
   def get_batches(year, search = nil)
+    authorize! :manage, Batch
+    
     batches = Batch.includes([:site, :category, :crop, :size])
       .where(:year => year)
       .order(["sites.name", "categories.name", "crops.name", "sizes.name", "generation"])

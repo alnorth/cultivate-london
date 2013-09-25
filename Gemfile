@@ -33,6 +33,7 @@ gem 'foreigner'
 gem 'classy_enum'
 
 gem 'devise'
+gem 'cancan'
 
 gem 'newrelic_rpm'
 
