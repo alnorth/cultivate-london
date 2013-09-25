@@ -59,3 +59,18 @@ header {
     }
   }
 }
+
+.flash {
+  text-align: center;
+  padding: 10px;
+
+  &.notice {
+    background-color: $flashNoticeColor;
+    border-bottom: 1px solid darken($flashNoticeColor, 20%);
+  }
+
+  &.warning {
+    background-color: $flashWarningColor;
+    border-bottom: 1px solid darken($flashWarningColor, 20%);
+  }
+}

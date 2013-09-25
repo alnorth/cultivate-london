@@ -13,6 +13,14 @@
     </nav>
     <span class="brand"><a href="/"><img src="/img/landManagementLogo_v01.png" /></a></span>
   </header>
+
+  <% if flash[:notice] %>
+    <div class="flash notice"><%= flash[:notice] %></div>
+  <% end %>
+  <% if flash[:warning] %>
+    <div class="flash warning"><%= flash[:warning] %></div>
+  <% end %>
+
   <div class="main">
     <%= yield %>
   </div>

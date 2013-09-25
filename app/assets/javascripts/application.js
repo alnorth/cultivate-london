@@ -16,3 +16,11 @@
 //= require ko.editables
 //= require underscore-min
 //= require moment.min
+
+$(function () {
+  $('.flash')
+    .delay(4000)
+    .slideUp(600, function () {
+      $(this).remove();
+    });
+});
