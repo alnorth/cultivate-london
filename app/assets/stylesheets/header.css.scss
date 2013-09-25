@@ -11,6 +11,29 @@ header {
     height: $headerHeight;
   }
 
+  ul.user-account {
+    float: right;
+    margin-left: 0;
+
+    li {
+      display: inline-block;
+      box-sizing: border-box;
+      height: $headerHeight;
+      padding-top: $headerHeight * 0.35;
+      margin-right: 20px;
+
+      a, a:visited {
+        color: $navColorSelected;
+        text-decoration: none;
+        font-size: 80%;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   nav {
     float: right;
 

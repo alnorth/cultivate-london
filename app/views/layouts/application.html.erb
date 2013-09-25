@@ -11,6 +11,10 @@
       <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
       <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
     </nav>
+    <ul class="user-account">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </ul>
     <span class="brand"><a href="/"><img src="/img/landManagementLogo_v01.png" /></a></span>
   </header>
 
