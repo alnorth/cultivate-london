@@ -22,12 +22,11 @@ def box_url(box_name)
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "schmoo"
+  config.vm.box = "schmoo64"
   config.vm.box_url = box_url(config.vm.box)
 
   config.vm.network :forwarded_port, guest: 3000, host: 3000
 
-  config.vm.synced_folder File.expand_path("~/Documents/dev"), "/home/vagrant/dev/"
   config.vm.synced_folder local_cache(config.vm.box, "apt"), "/var/cache/apt/archives/"
 
   config.ssh.forward_agent = true
