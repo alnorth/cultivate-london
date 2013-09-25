@@ -32,6 +32,8 @@ gem 'jquery-rails'
 gem 'foreigner'
 gem 'classy_enum'
 
+gem 'devise'
+
 gem 'newrelic_rpm'
 
 # Use unicorn as the app server
