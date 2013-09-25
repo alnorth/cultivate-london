@@ -1,5 +1,5 @@
 CultivateLondon::Application.routes.draw do
-  resources :users, :except => [:show]
+  resources :users, :constraints => {:id => /[0-9]+/}, :except => [:show]
   devise_for :users, :skip => [:registrations]
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
