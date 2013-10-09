@@ -6,7 +6,14 @@ c = (tagName, cls) ->
 contains = (text, searchString) ->
   text.toLowerCase().indexOf searchString.toLowerCase()
 
-getLi = (res, searchString, isSelected) ->
+# From http://stackoverflow.com/questions/9796764/how-do-i-sort-an-array-with-coffeescript
+sortBy = (key, a, b, r) ->
+  r = if r then 1 else -1
+  return -1*r if a[key] > b[key]
+  return +1*r if a[key] < b[key]
+  return 0
+
+getLi = (res, searchString, isSelected, selectFn) ->
   li = c('li')
   if isSelected
     li.addClass 'selected'
@@ -17,7 +24,7 @@ getLi = (res, searchString, isSelected) ->
     li.append c('span').text res.text.substr(res.index + searchString.length)
   else
     li.text res.text
-  li
+  li.click -> selectFn(res.text)
 
 ko.bindingHandlers.autocomplete =
   init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
@@ -34,27 +41,17 @@ ko.bindingHandlers.autocomplete =
     results = ko.computed ->
       searchString = search()
       if not searchString
-        _.map(values, (v) -> text: v)
+        (text: v for v in values)
       else
-        _.chain(values)
-          .map((val) ->
-            index: contains(val, searchString)
-            text: val
-          )
-          .filter((v) -> v.index >= 0)
-          .sortBy('text')
-          .sortBy('index')
-          .value()
+        filtered = (index: contains(val, searchString), text: val for val in values when contains(val, searchString) >= 0)
+        filtered.sort (a,b) -> (sortBy 'index', a, b) or (sortBy 'text', a, b)
 
     displayedHtml = ko.computed ->
       if visible()
         r = results()
         if r.length > 0
           searchString = search()
-          lis = _.map r, (res, index) ->
-            getLi(res, searchString, selectedIndex() is index)
-              .click -> select(res.text)
-
+          lis = (getLi(res, searchString, selectedIndex() is index, select) for res, index in r)
           c('ul').append lis
         else
           c('div', 'no-results').text('No results')
