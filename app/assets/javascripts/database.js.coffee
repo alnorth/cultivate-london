@@ -114,6 +114,10 @@ window.loadDatabaseData = (databaseData, staticData, year) ->
   vm = new ViewModel(databaseData, staticData, year)
   ko.applyBindings(vm)
 
+  $(window).bind 'beforeunload', ->
+    if vm.editing()
+      'You haven\'t saved the batch you were editing.'
+
 $ ->
   $('#year-picker').change ->
     window.location = '/database/' + $(this).val()

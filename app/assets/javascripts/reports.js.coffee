@@ -209,3 +209,7 @@ class ViewModel
 window.loadReports = (batches, stages, weekNumber) ->
   vm = new ViewModel(batches, stages, weekNumber)
   ko.applyBindings vm
+
+  $(window).bind 'beforeunload', ->
+    if vm.changes()
+      'You haven\'t saved the batches you were editing.'
