@@ -11,6 +11,22 @@ class Batch < ActiveRecord::Base
 
   attr_accessible :expiry_week, :generation, :germinate_week, :pot_week, :sale_week, :start_week, :total_trays, :units_per_tray, :site_id, :category_id, :crop_id, :type_id, :size_id, :stage, :year
 
+  validates :expiry_week, presence: true
+  validates :generation, presence: true
+  validates :germinate_week, presence: true
+  validates :pot_week, presence: true
+  validates :sale_week, presence: true
+  validates :start_week, presence: true
+  validates :total_trays, presence: true
+  validates :units_per_tray, presence: true
+  validates :site_id, presence: true
+  validates :category_id, presence: true
+  validates :crop_id, presence: true
+  validates :type_id, presence: true
+  validates :size_id, presence: true
+  validates :stage, presence: true
+  validates :year, presence: true
+
   # This is used when generating JSON. We don't send IDs for linked ojects, instead we send their names.
   def serializable_hash(options={})
     options = {
