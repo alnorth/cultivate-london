@@ -102,7 +102,7 @@ div.main {
 
 }
 
-* + .search {
+* + .search, .page-title + .btn {
   margin-left: $pagePadding;
 }
 
