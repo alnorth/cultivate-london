@@ -27,13 +27,13 @@ class BatchesController < ApplicationController
   end
 
   def update_and_save(batch, data, is_new=false)
-    batch.site = Site.where(name: data[:site_name]).first_or_create
-    batch.category = Category.where(name: data[:category_name]).first_or_create
-    batch.crop = Crop.where(name: data[:crop_name], category_id: batch.category).first_or_create
-    batch.type = Type.where(name: data[:type_name], crop_id: batch.crop).first_or_create
+    batch.site = Site.case_insensitive_find_or_create_by_name(data[:site_name])
+    batch.category = Category.case_insensitive_find_or_create_by_name(data[:category_name])
+    batch.crop = Crop.find_or_create_by_name_and_category(data[:crop_name], batch.category)
+    batch.type = Type.find_or_create_by_name_and_crop(data[:type_name], batch.crop)
 
     batch.generation = data[:generation]
-    batch.size = Size.where(:name => data[:size_name]).first_or_create
+    batch.size = Size.case_insensitive_find_or_create_by_name(data[:size_name])
     batch.units_per_tray = data[:units_per_tray]
     batch.total_trays = data[:total_trays]
 
