@@ -58,6 +58,14 @@ header {
         color: $navColorSelected;
       }
 
+      &.users {
+        background-image: url('/img/icon_users_unselected.png');
+        padding-left: 6px + $navIconWidth + $navIconPadding * 2.5; // Users icon is 6px wider than others
+        &:hover, &.selected {
+          background-image: url('/img/icon_users_selected.png');
+        }
+      }
+
       &.database {
         background-image: url('/img/icon_database_unselected.png');
         &:hover, &.selected {
