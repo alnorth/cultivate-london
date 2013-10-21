@@ -4,8 +4,10 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.nil?
       redirect_to new_user_session_path, :alert => exception.message
-    else
+    elsif can? :manage, Batch
       redirect_to root_path, :alert => exception.message
+    else
+      redirect_to reports_path
     end
   end
 

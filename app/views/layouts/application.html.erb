@@ -13,6 +13,8 @@
       <% end %>
       <% if can? :manage, Batch %>
         <%= link_to "Database", database_path, :class => "database " + (controller.controller_name == "database" ? "selected" : "") %>
+      <% end %>
+      <% if can? :read, Batch %>
         <%= link_to "Reports", reports_path, :class => "reports " + (controller.controller_name == "reports" ? "selected" : "") %>
       <% end %>
     </nav>

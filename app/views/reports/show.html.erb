@@ -30,9 +30,11 @@
       <td data-bind="text: sale_week"></td>
       <td data-bind="text: expiry_week"></td>
 
-      <td>
-        <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
-      </td>
+      <% if can? :manage, Batch %>
+        <td>
+          <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
+        </td>
+      <% end %>
     </tr>
   <!-- /ko -->
 </script>
@@ -59,7 +61,9 @@
                 <th>Pot/Ground</th>
                 <th>Sale</th>
                 <th>Expiry</th>
-                <th>Stage</th>
+                <% if can? :manage, Batch %>
+                  <th>Stage</th>
+                <% end %>
               </tr>
             </thead>
             <tbody>

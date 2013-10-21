@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def show
-    authorize! :manage, Batch
+    authorize! :read, Batch
 
     d = Date.today
     @week_number = d.cweek
@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
 
   def update
     authorize! :manage, Batch
-    
+
     params[:values].each do |batch_id, new_stage|
       batch = Batch.find(batch_id)
       batch.update_attribute(:stage, new_stage)
