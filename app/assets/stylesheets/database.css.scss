@@ -1,60 +1,3 @@
-
-td.week, td.generation, td.site-name {
-  input {
-    width: $bodyFontSize * 3;
-  }
-}
-
-td.tray, td.size {
-  input {
-    width: $bodyFontSize * 5;
-  }
-}
-
-td.input {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
-
-td.edit-controls {
-  white-space: nowrap;
-}
-
-td.error {
-  background-color: $errorColor !important;
-}
-
-.bottom-bar {
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: $headerBackground;
-  color: $bottomBarColor;
-  padding: $bottomBarPaddingV $bottomBarPaddingH;
-
-  .title, .btn, a {
-    margin-right: $bottomBarPaddingH;
-  }
-
-  .title {
-    font-weight: bold;
-    padding-right: $bottomBarPaddingH;
-    box-shadow: 1px 0 0 0 darken($headerBackground, 20%), 2px 0 0 0 lighten($headerBackground, 20%);
-  }
-
-  .btn {
-    @include backgrounded-button($headerBackground, $bottomBarColor);
-  }
-
-  a {
-    color: $bottomBarColor;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
 $autocompletePadding: 0.5em 1em;
 
 .autocomplete-results {
@@ -65,7 +8,9 @@ $autocompletePadding: 0.5em 1em;
   background-color: white;
   position: absolute;
   min-width: 200px;
-  box-shadow: #AAA 3px 3px 3px;
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
+  z-index: 101;
+  font-size: 80%;
 
   .no-results {
     padding: $autocompletePadding;

@@ -185,3 +185,97 @@ fieldset, nav {
     margin-top: $fieldsetPadding * 3;
   }
 }
+
+.bottom-bar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $headerBackground;
+  color: $bottomBarColor;
+  padding: $bottomBarPaddingV $bottomBarPaddingH;
+
+  .title, .btn, a {
+    margin-right: $bottomBarPaddingH;
+  }
+
+  .title {
+    font-weight: bold;
+    padding-right: $bottomBarPaddingH;
+    box-shadow: 1px 0 0 0 darken($headerBackground, 20%), 2px 0 0 0 lighten($headerBackground, 20%);
+  }
+
+  .btn {
+    @include backgrounded-button($headerBackground, $bottomBarColor);
+  }
+
+  a {
+    color: $bottomBarColor;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &.right {
+      float: right;
+      line-height: 26px;
+      margin-right: 0;
+    }
+  }
+}
+
+.modal-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 102;
+}
+
+.modal {
+  $modalWidth: 600px;
+  width: $modalWidth;
+  background-color: $tableBodyColor;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -$modalWidth/2;
+
+  .modal-content {
+    padding: $bottomBarPaddingH;
+  }
+
+  .bottom-bar {
+    position: relative;
+  }
+}
+
+.control-group {
+  display: table-row;
+
+  &.error {
+    background-color: $errorColor !important;
+  }
+
+  label, .controls {
+    display: table-cell;
+  }
+
+  label {
+    text-align: right;
+    width: 200px;
+    padding-right: 20px;
+    line-height: 22px;
+  }
+
+  .controls {
+    input[type="number"] {
+      width: $bodyFontSize * 5;
+      text-align: right;
+      padding-right: $bodyFontSize / 2;
+      margin: 2px;
+    }
+  }
+}

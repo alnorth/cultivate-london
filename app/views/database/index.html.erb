@@ -127,11 +127,84 @@
       <!-- /ko -->
     </tbody>
   </table>
+
   <!-- ko if: editing() -->
-    <div class="bottom-bar">
-      <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
-      <button class="btn" data-bind="click: save">Save</button>
-      <a data-bind="click: cancelEdit">Cancel</a>
+    <div class="modal-wrapper" data-bind="click: cancelEdit">
+      <div class="modal" data-bind="click: function(vm, e) { e.stopImmediatePropagation(); }">
+        <div class="modal-content" data-bind="with: editing(), validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
+
+          <div class="control-group" data-bind="validationElement: site_name">
+            <label>Site name</label>
+            <div class="controls">
+              <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown', autocomplete: $root.sites" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: category_name">
+            <label>Category</label>
+            <div class="controls">
+              <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: crop_name">
+            <label>Crop</label>
+            <div class="controls">
+              <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown', autocomplete: $root.crops" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: type_name">
+            <label>Type</label>
+            <div class="controls">
+              <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown', autocomplete: $root.types" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: generation">
+            <label>Generation</label>
+            <div class="controls">
+              <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: size_name">
+            <label>Size</label>
+            <div class="controls">
+              <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown', autocomplete: $root.sizes" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: units_per_tray">
+            <label>Units per tray</label>
+            <div class="controls">
+              <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: total_trays">
+            <label>Total trays</label>
+            <div class="controls">
+              <input class="required" data-bind="value: total_trays, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Cell size</label>
+            <div class="controls" data-bind="text: cell_size">
+            </div>
+          </div>
+
+        </div>
+        <div class="bottom-bar">
+          <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
+          <button class="btn" data-bind="click: save">Save</button>
+          <a data-bind="click: cancelEdit">Cancel</a>
+          <!-- ko if: editing().id() -->
+            <a class="right" data-bind="click: function () { destroy(editing()); }">Remove</a>
+          <!-- /ko -->
+        </div>
+      </div>
     </div>
   <!-- /ko -->
 </div>
