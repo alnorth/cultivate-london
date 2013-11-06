@@ -47,7 +47,7 @@ util =
     doc.text util.margin, y, stage.title
     y += 7
 
-    batchCount = stage.currentBatches() +
+    batchCount = stage.currentBatches().length +
       (if vm.includeOverdue() then stage.overdueBatches().length else 0) +
       (if vm.includeCompleted() then stage.completedBatches().length else 0)
 
