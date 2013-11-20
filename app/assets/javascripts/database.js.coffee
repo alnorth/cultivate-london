@@ -86,7 +86,7 @@ class ViewModel
   cancelEdit: =>
     e = @editing()
     if(!e.id())
-      @data.remove(e)
+      @destroy e
     else
       e.rollback()
     @editing(undefined)
