@@ -73,6 +73,11 @@ ko.bindingHandlers.autocomplete =
       search($(element).val())
       visible true
       selectedIndex 0
+    onkeydown = (event) ->
+      # Tab events on key up actually get sent to the *next* input
+      # element - the one you're moving to. So we detect on key down.
+      if event.keyCode is 9
+        select results()[selectedIndex()].text
     onkeyup = (event) ->
       if event.keyCode is 38
         selectedIndex Math.max(0, selectedIndex() - 1)
@@ -86,6 +91,7 @@ ko.bindingHandlers.autocomplete =
         onchange()
 
     $(element)
+      .keydown(onkeydown)
       .keyup(onkeyup)
 
     allBindingsAccessor().value.subscribe onchange
