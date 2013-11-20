@@ -133,6 +133,8 @@
       <div class="modal" data-bind="click: function(vm, e) { e.stopImmediatePropagation(); }">
         <div class="modal-content" data-bind="with: editing(), validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
 
+          <h2>Batch details</h2>
+
           <div class="control-group" data-bind="validationElement: site_name">
             <label>Site name</label>
             <div class="controls">
@@ -194,6 +196,39 @@
             <div class="controls" data-bind="text: cell_size">
             </div>
           </div>
+
+          <h2>Weeks</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Start</th>
+                <th>Germinate</th>
+                <th>Pot/Ground</th>
+                <th>Sale</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="week" data-bind="validationElement: start_week">
+                  <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
+                </td>
+                <td class="week" data-bind="validationElement: germinate_week">
+                  <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
+                </td>
+                <td class="week" data-bind="validationElement: pot_week">
+                  <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
+                </td>
+                <td class="week" data-bind="validationElement: sale_week">
+                  <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
+                </td>
+                <td class="week" data-bind="validationElement: expiry_week">
+                  <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
         </div>
         <div class="bottom-bar">
