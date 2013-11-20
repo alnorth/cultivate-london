@@ -28,7 +28,7 @@ class Batch
 
     @cell_size = ko.computed((->
         cell = @total_trays() * @units_per_tray()
-        if isNaN cell then '' else cell
+        if isNaN cell then 0 else cell
       ), this)
 
     if year?
