@@ -46,85 +46,32 @@
       </tr>
     </thead>
     <tbody data-bind="foreach: data">
-      <!-- ko ifnot: $parent.editing() === $data -->
-        <tr>
-          <td class="edit-controls">
-            <!-- ko ifnot: saving -->
-              <a data-bind="click: $parent.edit, ifnot: $parent.editing">Edit</a>
-            <!-- /ko -->
-            <!-- ko if: saving -->
-              Saving &hellip;
-            <!-- /ko -->
-          </td>
-          <td data-bind="text: id"></td>
-          <td data-bind="text: site_name"></td>
-          <td data-bind="text: category_name"></td>
-          <td data-bind="text: crop_name"></td>
-          <td data-bind="text: type_name"></td>
-          <td data-bind="text: generation"></td>
-          <td data-bind="text: size_name"></td>
-          <td data-bind="text: units_per_tray"></td>
-          <td data-bind="text: total_trays"></td>
-          <td data-bind="text: cell_size"></td>
-          <td data-bind="text: formatWeek(start_week())"></td>
-          <td data-bind="text: formatWeek(germinate_week())"></td>
-          <td data-bind="text: formatWeek(pot_week())"></td>
-          <td data-bind="text: formatWeek(sale_week())"></td>
-          <td data-bind="text: formatWeek(expiry_week())"></td>
-          <td data-bind="text: stage().title"></td>
-        </tr>
-      <!-- /ko -->
-      <!-- ko if: $parent.editing() === $data -->
-        <tr data-bind="validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
-          <td class="edit-controls">
-            <a data-bind="click: $parent.destroy">Remove</a>
-          </td>
-          <td data-bind="text: id"></td>
-          <td class="input site-name" data-bind="validationElement: site_name">
-            <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown', autocomplete: $root.sites" />
-          </td>
-          <td class="input" data-bind="validationElement: category_name">
-            <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
-          </td>
-          <td class="input" data-bind="validationElement: crop_name">
-            <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown', autocomplete: $root.crops" />
-          </td>
-          <td class="input" data-bind="validationElement: type_name">
-            <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown', autocomplete: $root.types" />
-          </td>
-          <td class="input generation" data-bind="validationElement: generation">
-            <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input size" data-bind="validationElement: size_name">
-            <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown', autocomplete: $root.sizes" />
-          </td>
-          <td class="input tray" data-bind="validationElement: units_per_tray">
-            <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input tray" data-bind="validationElement: total_trays">
-            <input class="required" data-bind="value: total_trays, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td data-bind="text: cell_size"></td>
-          <td class="input week" data-bind="validationElement: start_week">
-            <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input week" data-bind="validationElement: germinate_week">
-            <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input week" data-bind="validationElement: pot_week">
-            <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input week" data-bind="validationElement: sale_week">
-            <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input week" data-bind="validationElement: expiry_week">
-            <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
-          </td>
-          <td class="input">
-            <select data-bind="value: stage, options: $root.stages, optionsText: 'title'"></select>
-          </td>
-        </tr>
-      <!-- /ko -->
+      <tr>
+        <td class="edit-controls">
+          <!-- ko ifnot: saving -->
+            <a data-bind="click: $parent.edit, ifnot: $parent.editing">Edit</a>
+          <!-- /ko -->
+          <!-- ko if: saving -->
+            Saving &hellip;
+          <!-- /ko -->
+        </td>
+        <td data-bind="text: id"></td>
+        <td data-bind="text: site_name"></td>
+        <td data-bind="text: category_name"></td>
+        <td data-bind="text: crop_name"></td>
+        <td data-bind="text: type_name"></td>
+        <td data-bind="text: generation"></td>
+        <td data-bind="text: size_name"></td>
+        <td data-bind="text: units_per_tray"></td>
+        <td data-bind="text: total_trays"></td>
+        <td data-bind="text: cell_size"></td>
+        <td data-bind="text: formatWeek(start_week())"></td>
+        <td data-bind="text: formatWeek(germinate_week())"></td>
+        <td data-bind="text: formatWeek(pot_week())"></td>
+        <td data-bind="text: formatWeek(sale_week())"></td>
+        <td data-bind="text: formatWeek(expiry_week())"></td>
+        <td data-bind="text: stage().title"></td>
+      </tr>
     </tbody>
   </table>
 
