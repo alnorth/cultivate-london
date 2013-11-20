@@ -97,6 +97,8 @@ class ViewModel
       e.commit()
       e.save()
       @editing(undefined)
+    else
+      e.errors.showAllMessages()
 
   addNew: =>
     if(!@editing())

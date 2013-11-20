@@ -132,7 +132,7 @@ table {
     text-align: left;
   }
 
-  tbody tr:hover td:not(.no-highlight) {
+  tbody tr:not(.no-highlight):hover td:not(.no-highlight) {
     background-color: lighten($brandColor, 8%);
   }
 
@@ -254,6 +254,10 @@ fieldset, nav {
 
     table {
       width: 100%;
+
+      tr:hover td {
+        background-color: none;
+      }
     }
   }
 
@@ -288,4 +292,8 @@ fieldset, nav {
       margin: 2px;
     }
   }
+}
+
+td.error {
+  background-color: $errorColor !important;
 }
