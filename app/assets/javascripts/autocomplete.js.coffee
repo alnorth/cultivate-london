@@ -93,6 +93,9 @@ ko.bindingHandlers.autocomplete =
     # Close the list when clicking elsewhere
     $(document).click -> visible false
 
+    # Close the list when clicking in the modal container around the autocomplete
+    $(element).closest('.modal-content').click -> visible false
+
     # Get rid of the results display when the main element is removed
     ko.utils.domNodeDisposal.addDisposeCallback element, ->
       $(element).remove()
