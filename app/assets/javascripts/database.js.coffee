@@ -75,6 +75,7 @@ class ViewModel
     @types = staticData.types
     @sizes = staticData.sizes
     @data = ko.observableArray(ko.validatedObservable(new Batch(b, @stages)) for b in rawData)
+    @displayedData = ko.computed => b for b in @data() when !!b().id()
     @editing = ko.observable()
     @year = year
 

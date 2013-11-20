@@ -45,11 +45,11 @@
         <th>Stage</th>
       </tr>
     </thead>
-    <tbody data-bind="foreach: data">
+    <tbody data-bind="foreach: displayedData">
       <tr>
         <td class="edit-controls">
           <!-- ko ifnot: saving -->
-            <a data-bind="click: $parent.edit, ifnot: $parent.editing">Edit</a>
+            <a data-bind="click: $parent.edit">Edit</a>
           <!-- /ko -->
           <!-- ko if: saving -->
             Saving &hellip;
