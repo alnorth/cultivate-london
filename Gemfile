@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 #Keep this at 1.9.3 for Heroku San's sake until this issue is fixed: https://github.com/heroku/toolbelt/issues/63
 ruby '1.9.3'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.17'
 
 gem 'pg'
 
