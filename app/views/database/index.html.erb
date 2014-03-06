@@ -156,31 +156,37 @@
                 </div>
               </div>
 
-              <div class="control-group" data-bind="validationElement: germinate_week">
-                <label>Germinate</label>
+              <div class="control-group" data-bind="validationElement: weeks_to_germinate">
+                <label>Start -> Germinate</label>
                 <div class="controls">
-                  <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
+                  <input class="required" data-bind="value: weeks_to_germinate, valueUpdate:'afterkeydown'" type="number" />
+                  <small data-bind="if: germinate_week">(germinate week <span data-bind="text: germinate_week"></span>)</small>
                 </div>
               </div>
 
-              <div class="control-group" data-bind="validationElement: pot_week">
-                <label>Pot/Ground</label>
+              <div class="control-group" data-bind="validationElement: weeks_to_pot">
+                <label>Germinate -> Pot/Ground</label>
                 <div class="controls">
-                  <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
+                  <input class="required" data-bind="value: weeks_to_pot, valueUpdate:'afterkeydown'" type="number" />
+                  <small data-bind="if: pot_week">(pot/ground week <span data-bind="text: pot_week"></span>)</small>
                 </div>
               </div>
 
-              <div class="control-group" data-bind="validationElement: sale_week">
-                <label>Sale</label>
+              <div class="control-group" data-bind="validationElement: weeks_to_sale">
+                <label>Pot/Ground -> Sale</label>
                 <div class="controls">
-                  <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
+                  <input class="required" data-bind="value: weeks_to_sale, valueUpdate:'afterkeydown'" type="number" />
+                  <small data-bind="if: sale_week">(sale week <span data-bind="text: sale_week"></span>)</small>
                 </div>
               </div>
 
-              <div class="control-group" data-bind="validationElement: expiry_week">
-                <label>Expiry</label>
+              <div class="control-group" data-bind="validationElement: weeks_to_expiry">
+                <label>Sale -> Expiry</label>
                 <div class="controls">
-                  <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
+                  <input class="required" data-bind="value: weeks_to_expiry, valueUpdate:'afterkeydown'" type="number" />
+                  <small data-bind="if: expiry_week, validationElement: expiry_week">
+                    (expires week <span data-bind="text: expiry_week"></span>)
+                  </small>
                 </div>
               </div>
 

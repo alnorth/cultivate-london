@@ -18,8 +18,6 @@ class Batch
 
     for key in ['generation', 'total_trays', 'units_per_tray']
       this[key] = ko.observable(data[key]).extend(required: true, digit: true, min: 1)
-    for key in ['start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week']
-      this[key] = ko.observable(data[key]).extend(required: true, min: 1, max: 53, digit: true)
     for key in ['site', 'category', 'crop', 'type', 'size']
       value = undefined
       if _.isObject(data[key])
@@ -28,6 +26,17 @@ class Batch
         value = data[key + '_name']
       this[key + '_name'] = ko.observable(value).extend(required: true)
 
+    @start_week = ko.observable(data.start_week ? 1).extend(required: true, min: 1, max: 53, digit: true)
+    @weeks_to_germinate = @getGapObservable data, 'start_week', 'germinate_week'
+    @weeks_to_pot = @getGapObservable data, 'germinate_week', 'pot_week'
+    @weeks_to_sale = @getGapObservable data, 'pot_week', 'sale_week'
+    @weeks_to_expiry = @getGapObservable data, 'sale_week', 'expiry_week'
+
+    @germinate_week = @getWeekComputed @start_week, @weeks_to_germinate
+    @pot_week = @getWeekComputed @germinate_week, @weeks_to_pot
+    @sale_week = @getWeekComputed @pot_week, @weeks_to_sale
+    @expiry_week = @getWeekComputed(@sale_week, @weeks_to_expiry).extend(required: true, min: 1, max: 53, digit: true)
+    
     loadedStage = _.findWhere(stages, { id: data.stage })
     this.stage = ko.observable(loadedStage ? stages[0])
 
@@ -45,6 +54,13 @@ class Batch
     
     ko.editable(this)
 
+  getWeekComputed: (start, gap) ->
+    ko.computed () => parseInt(start(), 10) + parseInt(gap(), 10)
+
+  getGapObservable: (data, start, end) ->
+    gap = if data[start]? then parseInt(data[end], 10) - parseInt(data[start], 10) else 1
+    ko.observable(gap).extend(required: true, min: 1, max: 53, digit: true)
+
   formatWeek: (week) ->
     'W' + week
 
@@ -55,11 +71,12 @@ class Batch
     copy
 
   getNextGeneration: ->
-    stage = this.stage()
-    json = this.toJSON()
-    copy = new Batch(json, [stage], this.year) # Only need the one stage in the array, as this is the one that would be picked anyway
+    stage = @stage()
+    json = @toJSON()
+    copy = new Batch(json, [stage], @year) # Only need the one stage in the array, as this is the one that would be picked anyway
     copy.id(undefined)
-    copy.generation(parseInt(this.generation(), 10) + 1)
+    copy.generation(parseInt(@generation(), 10) + 1)
+    copy.start_week(parseInt(@start_week(), 10) + 1)
     copy
 
   save: ->
