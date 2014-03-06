@@ -146,37 +146,41 @@
 
           <h2>Weeks</h2>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Start</th>
-                <th>Germinate</th>
-                <th>Pot/Ground</th>
-                <th>Sale</th>
-                <th>Expiry</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="no-highlight">
-                <td class="week" data-bind="validationElement: start_week">
-                  <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
-                </td>
-                <td class="week" data-bind="validationElement: germinate_week">
-                  <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
-                </td>
-                <td class="week" data-bind="validationElement: pot_week">
-                  <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
-                </td>
-                <td class="week" data-bind="validationElement: sale_week">
-                  <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
-                </td>
-                <td class="week" data-bind="validationElement: expiry_week">
-                  <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="control-group" data-bind="validationElement: start_week">
+            <label>Start</label>
+            <div class="controls">
+              <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
 
+          <div class="control-group" data-bind="validationElement: germinate_week">
+            <label>Germinate</label>
+            <div class="controls">
+              <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: pot_week">
+            <label>Pot/Ground</label>
+            <div class="controls">
+              <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: sale_week">
+            <label>Sale</label>
+            <div class="controls">
+              <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+
+          <div class="control-group" data-bind="validationElement: expiry_week">
+            <label>Expiry</label>
+            <div class="controls">
+              <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
+            </div>
+          </div>
+          
         </div>
         <div class="bottom-bar">
           <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
