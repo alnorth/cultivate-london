@@ -21,6 +21,7 @@
       <% if can? :manage, Batch %>
         <td>
           <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
+          <a class="btn secondary slim" data-bind="visible: initialStage() == stage(), click: function () { $data.stage($parent.stage.next()) }">✓</a>
         </td>
       <% end %>
     </tr>

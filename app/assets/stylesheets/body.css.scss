@@ -71,6 +71,11 @@ div.main {
       @include linear-gradient($backgroundColor, darken($backgroundColor, 10%));
     }
   }
+
+  &.slim {
+    height: 20px;
+    line-height: 20px;
+  }
 }
 
 @mixin backgrounded-button($bgColor, $textColor) {
