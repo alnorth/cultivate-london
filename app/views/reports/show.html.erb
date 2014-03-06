@@ -1,15 +1,3 @@
-<nav>
-  <span class="page-title">
-    Week <%= @week_number %>
-  </span>
-  <span class="search">
-    <button class="btn primary" id="print-tasks" data-bind="click: printTasks">Download Task List</button>
-    <span>Include:</span>
-    <label><input type="checkbox" id="overdue" data-bind="checked: includeOverdue" /> Overdue tasks</label>
-    <label><input type="checkbox" id="completed" data-bind="checked: includeCompleted" /> Completed tasks</label>
-  </span>
-</nav>
-
 <script type="text/html" id="report-row-template">
   <!-- ko foreach: batches -->
     <tr data-bind="css: { 'first-report-row': $index() === 0 }">
@@ -38,6 +26,18 @@
     </tr>
   <!-- /ko -->
 </script>
+
+<nav class="static-nav">
+  <span class="page-title">
+    Week <%= @week_number %>
+  </span>
+  <span class="search">
+    <button class="btn primary" id="print-tasks" data-bind="click: printTasks">Download Task List</button>
+    <span>Include:</span>
+    <label><input type="checkbox" id="overdue" data-bind="checked: includeOverdue" /> Overdue tasks</label>
+    <label><input type="checkbox" id="completed" data-bind="checked: includeCompleted" /> Completed tasks</label>
+  </span>
+</nav>
 
 <div style="display: none" data-bind="visible: true"/>
   <!-- ko foreach: _.initial(stages()) -->
