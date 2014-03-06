@@ -21,7 +21,12 @@ class Batch
     for key in ['start_week', 'germinate_week', 'pot_week', 'sale_week', 'expiry_week']
       this[key] = ko.observable(data[key]).extend(required: true, min: 1, max: 53, digit: true)
     for key in ['site', 'category', 'crop', 'type', 'size']
-      this[key + '_name'] = ko.observable(if data[key] then data[key].name else undefined).extend(required: true)
+      value = undefined
+      if _.isObject(data[key])
+        value = data[key].name
+      else if _.isString(data[key + '_name'])
+        value = data[key + '_name']
+      this[key + '_name'] = ko.observable(value).extend(required: true)
 
     loadedStage = _.findWhere(stages, { id: data.stage })
     this.stage = ko.observable(loadedStage ? stages[0])
@@ -31,11 +36,13 @@ class Batch
         if isNaN cell then 0 else cell
       ), this)
 
-    if year?
+    if data.year?
+      @year = data.year
+    else if year?
       @year = year
 
     @saving = ko.observable(false)
-
+    
     ko.editable(this)
 
   formatWeek: (week) ->
@@ -45,6 +52,14 @@ class Batch
     copy = ko.toJS(this)
     if copy.stage?
       copy.stage = copy.stage.id
+    copy
+
+  getNextGeneration: ->
+    stage = this.stage()
+    json = this.toJSON()
+    copy = new Batch(json, [stage], this.year) # Only need the one stage in the array, as this is the one that would be picked anyway
+    copy.id(undefined)
+    copy.generation(parseInt(this.generation(), 10) + 1)
     copy
 
   save: ->
@@ -101,9 +116,14 @@ class ViewModel
     else
       e.errors.showAllMessages()
 
-  addNew: =>
+  saveAndAdd: =>
+    e = @editing()
+    @save()
+    @addNew(ko.validatedObservable(e.getNextGeneration()))
+
+  addNew: (b) =>
     if(!@editing())
-      b = ko.validatedObservable(new Batch({}, @stages, @year))
+      b = if ko.isObservable(b) then b else ko.validatedObservable(new Batch({}, @stages, @year))
       @data.unshift(b)
       b().beginEdit()
       @editing(b())
