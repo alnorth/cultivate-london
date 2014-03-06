@@ -77,110 +77,116 @@
 
   <!-- ko if: editing() -->
     <div class="modal-wrapper" data-bind="click: cancelEdit">
-      <div class="modal" data-bind="click: function(vm, e) { e.stopImmediatePropagation(); }">
+      <div class="modal modal--wide" data-bind="click: function(vm, e) { e.stopImmediatePropagation(); }">
         <div class="modal-content" data-bind="with: editing(), validationOptions: { insertMessages: false, decorateElement: true, errorElementClass: 'error' }">
 
           <h2>Batch details</h2>
 
-          <div class="control-group" data-bind="validationElement: site_name">
-            <label>Site name</label>
-            <div class="controls">
-              <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown', autocomplete: $root.sites" />
+          <div class="row">
+            <div class="one-half control-container">
+              <div class="control-group" data-bind="validationElement: site_name">
+                <label>Site name</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: site_name, valueUpdate:'afterkeydown', autocomplete: $root.sites" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: category_name">
+                <label>Category</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: crop_name">
+                <label>Crop</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown', autocomplete: $root.crops" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: type_name">
+                <label>Type</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown', autocomplete: $root.types" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: generation">
+                <label>Generation</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: size_name">
+                <label>Size</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown', autocomplete: $root.sizes" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: units_per_tray">
+                <label>Units per tray</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: total_trays">
+                <label>Total trays</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: total_trays, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label>Cell size</label>
+                <div class="controls" data-bind="text: cell_size">
+                </div>
+              </div>
+
+            </div>
+            <div class="one-half control-container">
+
+              <div class="control-group" data-bind="validationElement: start_week">
+                <label>Start week</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: germinate_week">
+                <label>Germinate</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: pot_week">
+                <label>Pot/Ground</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: sale_week">
+                <label>Sale</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
+              <div class="control-group" data-bind="validationElement: expiry_week">
+                <label>Expiry</label>
+                <div class="controls">
+                  <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <div class="control-group" data-bind="validationElement: category_name">
-            <label>Category</label>
-            <div class="controls">
-              <input class="required" data-bind="value: category_name, valueUpdate:'afterkeydown', autocomplete: $root.categories" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: crop_name">
-            <label>Crop</label>
-            <div class="controls">
-              <input class="required" data-bind="value: crop_name, valueUpdate:'afterkeydown', autocomplete: $root.crops" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: type_name">
-            <label>Type</label>
-            <div class="controls">
-              <input class="required" data-bind="value: type_name, valueUpdate:'afterkeydown', autocomplete: $root.types" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: generation">
-            <label>Generation</label>
-            <div class="controls">
-              <input class="required" data-bind="value: generation, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: size_name">
-            <label>Size</label>
-            <div class="controls">
-              <input class="required" data-bind="value: size_name, valueUpdate:'afterkeydown', autocomplete: $root.sizes" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: units_per_tray">
-            <label>Units per tray</label>
-            <div class="controls">
-              <input class="required" data-bind="value: units_per_tray, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: total_trays">
-            <label>Total trays</label>
-            <div class="controls">
-              <input class="required" data-bind="value: total_trays, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label>Cell size</label>
-            <div class="controls" data-bind="text: cell_size">
-            </div>
-          </div>
-
-          <h2>Weeks</h2>
-
-          <div class="control-group" data-bind="validationElement: start_week">
-            <label>Start</label>
-            <div class="controls">
-              <input class="required" data-bind="value: start_week, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: germinate_week">
-            <label>Germinate</label>
-            <div class="controls">
-              <input class="required" data-bind="value: germinate_week, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: pot_week">
-            <label>Pot/Ground</label>
-            <div class="controls">
-              <input class="required" data-bind="value: pot_week, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: sale_week">
-            <label>Sale</label>
-            <div class="controls">
-              <input class="required" data-bind="value: sale_week, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-
-          <div class="control-group" data-bind="validationElement: expiry_week">
-            <label>Expiry</label>
-            <div class="controls">
-              <input class="required" data-bind="value: expiry_week, valueUpdate:'afterkeydown'" type="number" />
-            </div>
-          </div>
-          
         </div>
         <div class="bottom-bar">
           <span class="title" data-bind="text: (editing().id() ? 'Edit Crop' : 'Add New Crop')"></span>
