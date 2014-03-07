@@ -93,7 +93,7 @@ util =
     y
 
 class Batch
-  constructor: (data, stages) ->
+  constructor: (data, stages, vm) ->
     for own key, value of data
       this[key] = value
     @initialStage = ko.observable _.findWhere(stages, id: @stage)
@@ -104,8 +104,16 @@ class Batch
         if isNaN cell then '' else cell
       ), this)
 
-    @changed = ko.computed =>
+    @isChanged = ko.computed =>
       @stage() isnt @initialStage()
+
+    @isCurrent = ko.computed =>
+      @[@stage().field] is vm.weekNumber
+    @isOverdue = ko.computed =>
+      @[@stage().field] < vm.weekNumber
+
+  complete: =>
+     @stage(@initialStage().next())
 
 class Stage
   constructor: (data, vm) ->
@@ -117,11 +125,11 @@ class Stage
 
     @currentBatches = ko.computed =>
       _.filter vm.batches(), (b) =>
-        b.stage() is this and b[@field] is vm.weekNumber
+        b.stage() is this and b.isCurrent()
 
     @overdueBatches = ko.computed =>
       _.filter vm.batches(), (b) =>
-        b.stage() is this and b[@field] < vm.weekNumber
+        b.stage() is this and b.isOverdue()
 
     @completedBatches = ko.computed =>
       _.filter vm.batches(), (b) =>
@@ -141,24 +149,27 @@ class ViewModel
     @batches = ko.observableArray()
     @stages = ko.observableArray()
     @stages(_.map(stages, (data) => new Stage(data, this)))
-    @batches(_.map(batches, (data) => new Batch(data, @stages())))
+    @batches(_.map(batches, (data) => new Batch(data, @stages(), this)))
 
     @displayedBatchCount = ko.computed =>
       return _.reduce _.map(_.initial(@stages()), (s) -> s.totalBatches()),
         (memo, num) -> memo + num
+    # We only care about current or overdue here
+    @unchangedBatches = ko.computed =>
+      _.filter @batches(), (b) -> !b.isChanged() and (b.isCurrent() or b.isOverdue())
 
     @includeOverdue = ko.observable false
     @includeCompleted = ko.observable false
 
     @changes = ko.computed =>
-      _.some @batches(), (b) -> b.changed()
+      _.some @batches(), (b) -> b.isChanged()
     @saving = ko.observable false
 
   save: =>
     if not @saving()
       @saving true
       values = _.chain(@batches())
-        .filter((b) -> b.changed())
+        .filter((b) -> b.isChanged())
         .map((b) -> [b.id, b.stage().id])
         .object()
         .value()
@@ -206,8 +217,12 @@ class ViewModel
   cancelEdit: =>
     _.each @batches(), (b) -> b.stage(b.initialStage())
 
+  completeAll: =>
+    _.each @unchangedBatches(), (b) -> b.complete()
+
 window.loadReports = (batches, stages, weekNumber) ->
   vm = new ViewModel(batches, stages, weekNumber)
+  window.vm = vm
   ko.applyBindings vm
 
   $(window).bind 'beforeunload', ->

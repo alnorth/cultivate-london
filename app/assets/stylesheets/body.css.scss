@@ -4,8 +4,7 @@ body {
 }
 
 div.main {
-  margin: $pagePadding;
-  margin-top: $pagePadding + $headerHeight;
+  margin: ($pagePadding + $headerHeight) $pagePadding;
   position: relative;
   
   nav {

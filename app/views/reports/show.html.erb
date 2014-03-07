@@ -21,7 +21,7 @@
       <% if can? :manage, Batch %>
         <td>
           <select data-bind="options: [$parent.stage, $parent.stage.next()], optionsText: 'title', value: stage"></select>
-          <a class="btn secondary slim" data-bind="visible: initialStage() == stage(), click: function () { $data.stage($parent.stage.next()) }">✓</a>
+          <a class="btn secondary slim" data-bind="visible: initialStage() == stage(), click: complete">✓</a>
         </td>
       <% end %>
     </tr>
@@ -37,6 +37,9 @@
     <span>Include:</span>
     <label><input type="checkbox" id="overdue" data-bind="checked: includeOverdue" /> Overdue tasks</label>
     <label><input type="checkbox" id="completed" data-bind="checked: includeCompleted" /> Completed tasks</label>
+  </span>
+  <span class="right" data-bind="visible: unchangedBatches().length">
+    <a class="btn secondary" data-bind="click: completeAll">✓ Complete All</a>
   </span>
 </nav>
 
